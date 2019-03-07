@@ -49,5 +49,6 @@ Voxels/Voxels/glew/GL/glew.h
 Voxels/Voxels/glew/GL/eglew.h
 Voxels/Voxels.xcodeproj/project.pbxproj
 Voxels/Voxels.xcodeproj/project.pbxproj
+./Voxels/Voxels/glew/**
 *.pbxproj
 Voxels/Voxels/glew
