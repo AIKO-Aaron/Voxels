@@ -2,7 +2,7 @@ cd "$(dirname $0)"
 
 #include platform specific download util functions
 unamestr=$(uname)
-proj="Dimension++"
+proj="Voxels"
 
 if [[ $unamestr = "Darwin" ]]; then
   source "./downloadUtilMac.sh"
