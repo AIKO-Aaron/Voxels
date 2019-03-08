@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		930FD977223243D1002E553F /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD975223243D1002E553F /* Window.cpp */; };
 		930FD97A2232484D002E553F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930FD9792232484D002E553F /* OpenGL.framework */; };
+		930FD97D22324E44002E553F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97B22324E44002E553F /* Shader.cpp */; };
+		930FD98122324EA9002E553F /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97F22324EA9002E553F /* FileUtil.cpp */; };
 		93D5466E2231544000B66D7F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D5466D2231544000B66D7F /* main.cpp */; };
 		93D546752231576300B66D7F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546742231576300B66D7F /* SDL2_image.framework */; };
 		93D5467A2231576A00B66D7F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546762231576A00B66D7F /* SDL2.framework */; };
@@ -46,6 +48,11 @@
 		930FD975223243D1002E553F /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		930FD976223243D1002E553F /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		930FD9792232484D002E553F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		930FD97B22324E44002E553F /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		930FD97C22324E44002E553F /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		930FD97F22324EA9002E553F /* FileUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
+		930FD98022324EA9002E553F /* FileUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtil.hpp; sourceTree = "<group>"; };
+		930FD983223251E2002E553F /* StaticConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaticConfig.h; sourceTree = "<group>"; };
 		93D5466A2231544000B66D7F /* Voxels */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voxels; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D5466D2231544000B66D7F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		93D546742231576300B66D7F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
@@ -83,6 +90,8 @@
 			children = (
 				930FD975223243D1002E553F /* Window.cpp */,
 				930FD976223243D1002E553F /* Window.hpp */,
+				930FD97B22324E44002E553F /* Shader.cpp */,
+				930FD97C22324E44002E553F /* Shader.hpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -100,6 +109,23 @@
 				930FD9792232484D002E553F /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		930FD97E22324E9B002E553F /* util */ = {
+			isa = PBXGroup;
+			children = (
+				930FD97F22324EA9002E553F /* FileUtil.cpp */,
+				930FD98022324EA9002E553F /* FileUtil.hpp */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		930FD982223251AA002E553F /* config */ = {
+			isa = PBXGroup;
+			children = (
+				930FD983223251E2002E553F /* StaticConfig.h */,
+			);
+			path = config;
 			sourceTree = "<group>";
 		};
 		93D546612231544000B66D7F = {
@@ -128,6 +154,8 @@
 		93D5466C2231544000B66D7F /* Voxels */ = {
 			isa = PBXGroup;
 			children = (
+				930FD982223251AA002E553F /* config */,
+				930FD97E22324E9B002E553F /* util */,
 				930FD974223243C6002E553F /* math */,
 				930FD973223243B9002E553F /* graphics */,
 				93D5467E2231577C00B66D7F /* assets */,
@@ -214,6 +242,8 @@
 			files = (
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
+				930FD98122324EA9002E553F /* FileUtil.cpp in Sources */,
+				930FD97D22324E44002E553F /* Shader.cpp in Sources */,
 				93D5466E2231544000B66D7F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

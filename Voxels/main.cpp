@@ -6,6 +6,7 @@
 //  Copyright © 2019 Aaron Hodel. All rights reserved.
 //
 
+#include "config/StaticConfig.h"
 #include "graphics/Window.hpp"
 
 int main(int argc, const char **argv) {

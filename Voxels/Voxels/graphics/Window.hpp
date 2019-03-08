@@ -14,6 +14,8 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 
+#include "config/StaticConfig.h"
+
 namespace graphics {
     
     typedef void (*renderFunc)();
