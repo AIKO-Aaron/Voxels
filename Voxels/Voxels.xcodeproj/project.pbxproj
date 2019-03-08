@@ -52,7 +52,10 @@
 		930FD97C22324E44002E553F /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		930FD97F22324EA9002E553F /* FileUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
 		930FD98022324EA9002E553F /* FileUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtil.hpp; sourceTree = "<group>"; };
-		930FD983223251E2002E553F /* StaticConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaticConfig.h; sourceTree = "<group>"; };
+		930FD983223251E2002E553F /* StaticConfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StaticConfig.hpp; sourceTree = "<group>"; };
+		938E1A202232CE4B0044BB17 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
+		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
+		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
 		93D5466A2231544000B66D7F /* Voxels */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voxels; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D5466D2231544000B66D7F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		93D546742231576300B66D7F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		930FD973223243B9002E553F /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				938E1A1F2232CE060044BB17 /* objects */,
 				930FD975223243D1002E553F /* Window.cpp */,
 				930FD976223243D1002E553F /* Window.hpp */,
 				930FD97B22324E44002E553F /* Shader.cpp */,
@@ -99,6 +103,9 @@
 		930FD974223243C6002E553F /* math */ = {
 			isa = PBXGroup;
 			children = (
+				938E1A202232CE4B0044BB17 /* Matrix.hpp */,
+				938E1A212232CE4B0044BB17 /* Vector.hpp */,
+				938E1A222232CEAE0044BB17 /* Math.hpp */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -123,9 +130,16 @@
 		930FD982223251AA002E553F /* config */ = {
 			isa = PBXGroup;
 			children = (
-				930FD983223251E2002E553F /* StaticConfig.h */,
+				930FD983223251E2002E553F /* StaticConfig.hpp */,
 			);
 			path = config;
+			sourceTree = "<group>";
+		};
+		938E1A1F2232CE060044BB17 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = objects;
 			sourceTree = "<group>";
 		};
 		93D546612231544000B66D7F = {
@@ -370,6 +384,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Voxels/glew",
 					"$(PROJECT_DIR)/Voxels",
@@ -388,6 +403,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Voxels/glew",
 					"$(PROJECT_DIR)/Voxels",

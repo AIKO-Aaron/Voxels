@@ -6,8 +6,9 @@
 //  Copyright © 2019 Aaron Hodel. All rights reserved.
 //
 
-#include "config/StaticConfig.h"
+#include "config/StaticConfig.hpp"
 #include "graphics/Window.hpp"
+#include "math/Math.hpp"
 
 int main(int argc, const char **argv) {
     graphics::Window window = graphics::Window();

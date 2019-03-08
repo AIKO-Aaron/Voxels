@@ -14,7 +14,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 
-#include "config/StaticConfig.h"
+#include "config/StaticConfig.hpp"
 
 namespace graphics {
     
