@@ -16,11 +16,21 @@
 
 namespace graphics {
     
+    typedef void (*renderFunc)();
+    
     class Window {
     private:
+        SDL_Window *window = nullptr;
+        SDL_GLContext context;
+        bool running = false;
+
+        void initGL();
+        void initContext();
         
     public:
         Window();
+        
+        void run();
     };
     
 }
