@@ -11,6 +11,6 @@
 
 int main(int argc, const char **argv) {
     graphics::Window window = graphics::Window();
-    
+    window.run();
     return 0;
 }

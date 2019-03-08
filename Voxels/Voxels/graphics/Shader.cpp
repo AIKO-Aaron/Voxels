@@ -57,7 +57,6 @@ graphics::Shader::Shader(const char *vertSrc, const char *fragSrc) {
 }
 
 
-
 static util::filedata loadShaderRecursive(const char *filePath, int depth = 9) {
     if(!depth) return util::readFile(filePath); // Don't load more than 10 files recursively, exit condition
     

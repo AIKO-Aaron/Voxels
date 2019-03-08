@@ -70,6 +70,6 @@ void graphics::Window::initContext() {
     int i = 0;
     printf("[INFO] Loaded GL Version: %s\n", glGetString(GL_VERSION));
     printf("[INFO] Loaded GLSL Version: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-    while((err = glGetError()) != GL_INVALID_VALUE) printf("\t[INFO] Loaded extension: %s\n", glGetStringi(GL_EXTENSIONS, i++));
+    while((err = glGetError()) != GL_INVALID_VALUE) printf("\t[INFO] Available extension: %s\n", glGetStringi(GL_EXTENSIONS, i++));
 #endif
 }

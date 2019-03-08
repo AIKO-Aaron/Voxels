@@ -154,11 +154,11 @@
 		93D5466C2231544000B66D7F /* Voxels */ = {
 			isa = PBXGroup;
 			children = (
+				93D5467E2231577C00B66D7F /* assets */,
 				930FD982223251AA002E553F /* config */,
 				930FD97E22324E9B002E553F /* util */,
 				930FD974223243C6002E553F /* math */,
 				930FD973223243B9002E553F /* graphics */,
-				93D5467E2231577C00B66D7F /* assets */,
 				93D5468F22315C1800B66D7F /* glew */,
 			);
 			path = Voxels;
