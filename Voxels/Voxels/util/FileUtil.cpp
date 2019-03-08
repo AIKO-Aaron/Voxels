@@ -12,7 +12,8 @@ util::filedata util::readFile(const char *path) {
 #ifdef __APPLE__
     FILE *f = fopen(path, "rb");
 #else
-    
+	FILE *f;
+	fopen_s(&f, path, "rb");
 #endif
     
     if(!f) {

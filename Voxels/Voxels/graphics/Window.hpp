@@ -10,8 +10,15 @@
 #define Window_hpp
 
 #include <GL/glew.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
+
+#ifdef __APPLE__
+#  include <SDL2/SDL.h>
+#  include <SDL2/SDL_opengl.h>
+#else
+#  include "SDL.h"
+#  include "SDL_opengl.h"
+#endif
+
 #include <stdio.h>
 
 #include "config/StaticConfig.hpp"

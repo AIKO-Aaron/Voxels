@@ -10,7 +10,7 @@
 #include "graphics/Window.hpp"
 #include "math/Math.hpp"
 
-int main(int argc, const char **argv) {
+int main(int argc, char **args) {
     graphics::Window window = graphics::Window();
     window.run();
     return 0;

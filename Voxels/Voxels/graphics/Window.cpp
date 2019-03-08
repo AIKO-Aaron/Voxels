@@ -10,7 +10,7 @@
 
 graphics::Window::Window() {
     initGL();
-    window = SDL_CreateWindow("Hello World", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 540, 0);
+    window = SDL_CreateWindow("Hello World", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 540, SDL_WINDOW_OPENGL);
     initContext();
 }
 
@@ -37,8 +37,14 @@ void graphics::Window::run() {
 void graphics::Window::initGL() {
     SDL_Init(SDL_INIT_VIDEO);
     
+#ifdef __APPLE__
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); // Load GL version 3
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); // .2
+#else
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); // Load GL version 4
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1); // .1
+#endif
+
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // The core profile (Macs don't have more than that above GL version 2.1)
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); // Enable accelerated graphics
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Enable double buffering (No flickering)
@@ -55,8 +61,8 @@ void graphics::Window::initContext() {
     context = SDL_GL_CreateContext(window);
     
     if(context == nullptr) {
-        printf("[ERROR] Couldn't create GL context\n");
-        exit(0);
+        printf("[ERROR] Couldn't create GL context %d\n", glGetError());
+        exit(1);
     }
     
     glewExperimental = true;
