@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930FD977223243D1002E553F /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD975223243D1002E553F /* Window.cpp */; };
 		93D5466E2231544000B66D7F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D5466D2231544000B66D7F /* main.cpp */; };
 		93D546752231576300B66D7F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546742231576300B66D7F /* SDL2_image.framework */; };
 		93D5467A2231576A00B66D7F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546762231576A00B66D7F /* SDL2.framework */; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		930FD975223243D1002E553F /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		930FD976223243D1002E553F /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		93D5466A2231544000B66D7F /* Voxels */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voxels; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D5466D2231544000B66D7F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		93D546742231576300B66D7F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
@@ -72,6 +75,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		930FD973223243B9002E553F /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				930FD975223243D1002E553F /* Window.cpp */,
+				930FD976223243D1002E553F /* Window.hpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
+		930FD974223243C6002E553F /* math */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
 		93D546612231544000B66D7F = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +116,8 @@
 		93D5466C2231544000B66D7F /* Voxels */ = {
 			isa = PBXGroup;
 			children = (
+				930FD974223243C6002E553F /* math */,
+				930FD973223243B9002E553F /* graphics */,
 				93D5467E2231577C00B66D7F /* assets */,
 				93D5468F22315C1800B66D7F /* glew */,
 			);
@@ -180,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
+				930FD977223243D1002E553F /* Window.cpp in Sources */,
 				93D5466E2231544000B66D7F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,7 +328,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Voxels/glew";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Voxels/glew",
+					"$(PROJECT_DIR)/Voxels",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -321,7 +346,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Voxels/glew";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Voxels/glew",
+					"$(PROJECT_DIR)/Voxels",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
