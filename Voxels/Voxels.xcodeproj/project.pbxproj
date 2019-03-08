@@ -11,7 +11,7 @@
 		930FD97A2232484D002E553F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930FD9792232484D002E553F /* OpenGL.framework */; };
 		930FD97D22324E44002E553F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97B22324E44002E553F /* Shader.cpp */; };
 		930FD98122324EA9002E553F /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97F22324EA9002E553F /* FileUtil.cpp */; };
-		93D5466E2231544000B66D7F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D5466D2231544000B66D7F /* main.cpp */; };
+		938E1A242232D6060044BB17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A232232D6060044BB17 /* main.cpp */; };
 		93D546752231576300B66D7F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546742231576300B66D7F /* SDL2_image.framework */; };
 		93D5467A2231576A00B66D7F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546762231576A00B66D7F /* SDL2.framework */; };
 		93D5467B2231576A00B66D7F /* SDL2_net.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546772231576A00B66D7F /* SDL2_net.framework */; };
@@ -56,8 +56,8 @@
 		938E1A202232CE4B0044BB17 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
 		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
+		938E1A232232D6060044BB17 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Voxels/main.cpp; sourceTree = "<group>"; };
 		93D5466A2231544000B66D7F /* Voxels */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voxels; sourceTree = BUILT_PRODUCTS_DIR; };
-		93D5466D2231544000B66D7F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		93D546742231576300B66D7F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		93D546762231576A00B66D7F /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
 		93D546772231576A00B66D7F /* SDL2_net.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_net.framework; path = ../SDL2_net.framework; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				93D546762231576A00B66D7F /* SDL2.framework */,
 				93D546742231576300B66D7F /* SDL2_image.framework */,
 				93D5466C2231544000B66D7F /* Voxels */,
-				93D5466D2231544000B66D7F /* main.cpp */,
+				938E1A232232D6060044BB17 /* main.cpp */,
 				93D5466B2231544000B66D7F /* Products */,
 				930FD9782232484D002E553F /* Frameworks */,
 			);
@@ -257,8 +257,8 @@
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
 				930FD98122324EA9002E553F /* FileUtil.cpp in Sources */,
+				938E1A242232D6060044BB17 /* main.cpp in Sources */,
 				930FD97D22324E44002E553F /* Shader.cpp in Sources */,
-				93D5466E2231544000B66D7F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
