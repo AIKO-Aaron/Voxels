@@ -24,7 +24,8 @@ util::filedata util::readFile(const char *path) {
     filedata fd;
     fseek(f, 0, SEEK_END);
     fd.size = ftell(f);
-    fd.data = (uint8_t*) malloc(fd.size);
+    fd.data = (uint8_t*) malloc(fd.size + 1);
+	fd.data[fd.size] = 0;
     fseek(f, 0, SEEK_SET);
     fread(fd.data, 1, fd.size, f);
     fclose(f);

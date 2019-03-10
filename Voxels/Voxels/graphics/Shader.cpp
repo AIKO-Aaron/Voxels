@@ -22,6 +22,9 @@ graphics::Shader::Shader(const char *vertSrc, const char *fragSrc) {
         glGetShaderInfoLog(vid, status, &status, errorlog);
         printf("%s\n", errorlog);
         free(errorlog);
+#ifdef DEBUG_GL
+		exit(1);
+#endif
     }
     
     GLuint fid = glCreateShader(GL_FRAGMENT_SHADER);
@@ -36,6 +39,9 @@ graphics::Shader::Shader(const char *vertSrc, const char *fragSrc) {
         glGetShaderInfoLog(fid, status, &status, errorlog);
         printf("%s\n", errorlog);
         free(errorlog);
+#ifdef DEBUG_GL
+		exit(1);
+#endif
     }
     
     shaderID = glCreateProgram();
@@ -53,6 +59,9 @@ graphics::Shader::Shader(const char *vertSrc, const char *fragSrc) {
         glGetProgramInfoLog(shaderID, status, &status, errorlog);
         printf("%s\n", errorlog);
         free(errorlog);
+#ifdef DEBUG_GL
+		exit(1);
+#endif
     }
 }
 

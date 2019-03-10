@@ -20,12 +20,14 @@
 #endif
 
 #include <stdio.h>
+#include <vector>
 
 #include "config/StaticConfig.hpp"
 
 namespace graphics {
     
     typedef void (*renderFunc)();
+	typedef void(*eventFunc)(SDL_Event e);
     
     class Window {
     private:
@@ -33,12 +35,19 @@ namespace graphics {
         SDL_GLContext context;
         bool running = false;
 
+		std::vector<eventFunc> eventDispatchers;
+		std::vector<renderFunc> renderDispatchers;
+
         void initGL();
         void initContext();
         
     public:
         Window();
-        
+		~Window();
+
+		inline void addRenderFunc(renderFunc f) { renderDispatchers.push_back(f); }
+		inline void addEventFunc(eventFunc f) { eventDispatchers.push_back(f); }
+
         void run();
     };
     

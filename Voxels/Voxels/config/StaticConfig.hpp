@@ -9,7 +9,21 @@
 #ifndef StaticConfig_h
 #define StaticConfig_h
 
-// If we need more output about our current OpenGL setup
-#define DEBUG_GL
+//################################
+// Debugging
+//################################
+
+// #define DEBUG_GL // If we need more output about our current OpenGL setup
+
+
+
+
+//################################
+// Window
+//################################
+
+#define WINDOW_TITLE "Voxels"
+#define WINDOW_WIDTH 960
+#define WINDOW_HEIGHT 540
 
 #endif /* StaticConfig_h */

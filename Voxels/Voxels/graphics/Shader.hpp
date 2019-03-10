@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string>
 #include "../util/FileUtil.hpp"
+#include "../config/StaticConfig.hpp"
 
 namespace graphics {
     class Shader {

@@ -10,8 +10,14 @@
 
 graphics::Window::Window() {
     initGL();
-    window = SDL_CreateWindow("Hello World", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 540, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
     initContext();
+}
+
+graphics::Window::~Window() {
+	SDL_DestroyWindow(window);
+	SDL_GL_DeleteContext(context);
+	SDL_Quit();
 }
 
 void graphics::Window::run() {
@@ -24,11 +30,13 @@ void graphics::Window::run() {
             if(e.type == SDL_WINDOWEVENT) {
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE) running = false;
             }
+
+			for (eventFunc dis : eventDispatchers) dis(e);
         }
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        glClearColor(1, 1, 1, 1); // Render stuff
+		for (renderFunc dis : renderDispatchers) dis();
         
         SDL_GL_SwapWindow(window);
     }
