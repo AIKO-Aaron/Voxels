@@ -38,11 +38,12 @@ void handleEvent(SDL_Event e) {
 }
 
 int main(int argc, char **args) {
+    graphics::Window window = graphics::Window();
+
     //push a test voxel into a junk
     chunks.push_back(new graphics::Chunk(0,0));
     chunks[0]->voxels.push_back(new graphics::objects::Voxel());
     
-    graphics::Window window = graphics::Window();
     
     voxel = new graphics::objects::Voxel();
 	shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
