@@ -10,7 +10,7 @@
 
 using namespace graphics::objects;
 
-Voxel::Voxel(){
+Voxel::Voxel() : voxelType(BLANK) {
     init();
 }
 
@@ -38,12 +38,44 @@ void Voxel::init(){
     verticies[6] = { 1, 1, -1, 1, 1 };
     verticies[7] = { 1, 0, -1, 1, 0 };
     
+    verticies[8]  = { 0, 0, 0, 0, 0 };
+    verticies[9]  = { 0, 1, 0, 0, 1 };
+    verticies[10] = { 0, 1, -1, 1, 1 };
+    verticies[11] = { 0, 0, -1, 1, 0 };
+    
+    verticies[12] = { 1, 0, 0, 0, 0 };
+    verticies[13] = { 1, 0, -1, 0, 1 };
+    verticies[14] = { 1, 1, -1, 1, 1 };
+    verticies[15] = { 1, 1, 0, 1, 0 };
+    
+    verticies[16]  = { 0, 1, 0, 0, 0 };
+    verticies[17]  = { 1, 1, 0, 0, 1 };
+    verticies[18] = { 1, 1, -1, 1, 1 };
+    verticies[19] = { 0, 1, -1, 1, 0 };
+    
+    verticies[20] = { 0, 0, 0, 0, 0 };
+    verticies[21] = { 0, 0, -1, 0, 1 };
+    verticies[22] = { 1, 0, -1, 1, 1 };
+    verticies[23] = { 1, 0, 0, 1, 0 };
+    
     GLubyte *indicies = new GLubyte[36] {
         0, 1, 2,
         2, 3, 0,
         
         4, 5, 6,
-        6, 7, 4
+        6, 7, 4,
+        
+        8, 9, 10,
+        10, 11, 8,
+        
+        12, 13, 14,
+        14, 15, 12,
+        
+        16, 17, 18,
+        18, 19, 16,
+        
+        20, 21, 22,
+        22, 23, 20
     };
     
     glEnableVertexAttribArray(0);
@@ -63,5 +95,5 @@ void Voxel::init(){
 
 void Voxel::render() {
     glBindVertexArray(vaoID);
-    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_BYTE, 0);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0);
 }

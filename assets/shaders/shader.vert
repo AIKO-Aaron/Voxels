@@ -13,10 +13,7 @@ out vec4 col;
 out vec2 uv;
 
 void main() {
-	gl_Position = mat4(1, 0, 0, 0,
-                       0, 1, 0, 0,
-                       0, 0, 1, 0,
-                       -0.5, -0.5, 1, 1) * rotate_x(time) * vec4(vertPosition, 1);
+	gl_Position = translate(vec3(0.5, 0.5, -0.5)) * rotate_y(time) * translate(vec3(-0.5, -0.5, 0.5)) * vec4(vertPosition, 1);
 
 	col = vec4(1, 0, 1, 1);
 	pos = gl_Position;
