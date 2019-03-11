@@ -12,6 +12,10 @@
 		930FD97D22324E44002E553F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97B22324E44002E553F /* Shader.cpp */; };
 		930FD98122324EA9002E553F /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97F22324EA9002E553F /* FileUtil.cpp */; };
 		938E1A242232D6060044BB17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A232232D6060044BB17 /* main.cpp */; };
+		938E1A27223506530044BB17 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A25223506530044BB17 /* Physics.cpp */; };
+		938E1A2B223662110044BB17 /* Voxel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A29223662110044BB17 /* Voxel.cpp */; };
+		938E1A2E223662450044BB17 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A2C223662450044BB17 /* Object.cpp */; };
+		938E1A3122366EC70044BB17 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A2F22366EC70044BB17 /* Texture.cpp */; };
 		93D546752231576300B66D7F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546742231576300B66D7F /* SDL2_image.framework */; };
 		93D5467A2231576A00B66D7F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546762231576A00B66D7F /* SDL2.framework */; };
 		93D5467B2231576A00B66D7F /* SDL2_net.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D546772231576A00B66D7F /* SDL2_net.framework */; };
@@ -57,6 +61,14 @@
 		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
 		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
 		938E1A232232D6060044BB17 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Voxels/main.cpp; sourceTree = "<group>"; };
+		938E1A25223506530044BB17 /* Physics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
+		938E1A26223506530044BB17 /* Physics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Physics.hpp; sourceTree = "<group>"; };
+		938E1A29223662110044BB17 /* Voxel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Voxel.cpp; sourceTree = "<group>"; };
+		938E1A2A223662110044BB17 /* Voxel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Voxel.hpp; sourceTree = "<group>"; };
+		938E1A2C223662450044BB17 /* Object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		938E1A2D223662450044BB17 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		938E1A2F22366EC70044BB17 /* Texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		938E1A3022366EC70044BB17 /* Texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		93D5466A2231544000B66D7F /* Voxels */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Voxels; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D546742231576300B66D7F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		93D546762231576A00B66D7F /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
@@ -91,11 +103,13 @@
 		930FD973223243B9002E553F /* graphics */ = {
 			isa = PBXGroup;
 			children = (
-				938E1A1F2232CE060044BB17 /* objects */,
+				938E1A282236603A0044BB17 /* objects */,
 				930FD975223243D1002E553F /* Window.cpp */,
 				930FD976223243D1002E553F /* Window.hpp */,
 				930FD97B22324E44002E553F /* Shader.cpp */,
 				930FD97C22324E44002E553F /* Shader.hpp */,
+				938E1A2F22366EC70044BB17 /* Texture.cpp */,
+				938E1A3022366EC70044BB17 /* Texture.hpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -106,6 +120,8 @@
 				938E1A202232CE4B0044BB17 /* Matrix.hpp */,
 				938E1A212232CE4B0044BB17 /* Vector.hpp */,
 				938E1A222232CEAE0044BB17 /* Math.hpp */,
+				938E1A25223506530044BB17 /* Physics.cpp */,
+				938E1A26223506530044BB17 /* Physics.hpp */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -135,9 +151,13 @@
 			path = config;
 			sourceTree = "<group>";
 		};
-		938E1A1F2232CE060044BB17 /* objects */ = {
+		938E1A282236603A0044BB17 /* objects */ = {
 			isa = PBXGroup;
 			children = (
+				938E1A29223662110044BB17 /* Voxel.cpp */,
+				938E1A2A223662110044BB17 /* Voxel.hpp */,
+				938E1A2C223662450044BB17 /* Object.cpp */,
+				938E1A2D223662450044BB17 /* Object.hpp */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -256,8 +276,12 @@
 			files = (
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
+				938E1A2E223662450044BB17 /* Object.cpp in Sources */,
+				938E1A3122366EC70044BB17 /* Texture.cpp in Sources */,
 				930FD98122324EA9002E553F /* FileUtil.cpp in Sources */,
+				938E1A27223506530044BB17 /* Physics.cpp in Sources */,
 				938E1A242232D6060044BB17 /* main.cpp in Sources */,
+				938E1A2B223662110044BB17 /* Voxel.cpp in Sources */,
 				930FD97D22324E44002E553F /* Shader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

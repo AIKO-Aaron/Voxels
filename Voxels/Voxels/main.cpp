@@ -9,10 +9,15 @@
 #include "config/StaticConfig.hpp"
 #include "graphics/Window.hpp"
 #include "graphics/Shader.hpp"
-#include "math/Math.hpp"
+#include "math/Physics.hpp"
+#include "graphics/objects/Voxel.hpp"
+
+graphics::objects::Object *voxel;
+graphics::Shader *shader;
 
 void render() {
 	glClearColor(1, 1, 1, 1); // Render stuff
+    voxel->render();
 }
 
 void handleEvent(SDL_Event e) {
@@ -21,11 +26,13 @@ void handleEvent(SDL_Event e) {
 
 int main(int argc, char **args) {
     graphics::Window window = graphics::Window();
-	graphics::Shader *shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
+    
+    voxel = new graphics::objects::Voxel();
+	shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
+    shader->bind();
     
 	window.addEventFunc(handleEvent);
 	window.addRenderFunc(render);
-	
-	window.run();
+    window.run();
     return 0;
 }

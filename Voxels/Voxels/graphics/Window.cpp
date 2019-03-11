@@ -44,6 +44,7 @@ void graphics::Window::run() {
 
 void graphics::Window::initGL() {
     SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
     
 #ifdef __APPLE__
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); // Load GL version 3
@@ -78,6 +79,9 @@ void graphics::Window::initContext() {
         printf("[ERROR] Couldn't initialize GLEW\n");
         exit(1);
     }
+    
+    glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
     
 #ifdef DEBUG_GL
     GLuint err = glGetError();
