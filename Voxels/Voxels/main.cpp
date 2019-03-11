@@ -14,10 +14,15 @@
 
 graphics::objects::Object *voxel;
 graphics::Shader *shader;
+float currentTime = 0;
 
 void render() {
 	glClearColor(1, 1, 1, 1); // Render stuff
     voxel->render();
+    
+    shader->uniformf("time", currentTime);
+    
+    currentTime += 0.001;
 }
 
 void handleEvent(SDL_Event e) {

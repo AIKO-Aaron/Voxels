@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 #include <vector>
+#include <time.h>
+#include <chrono>
+#include <thread>
 
 #include "config/StaticConfig.hpp"
 
@@ -36,7 +39,11 @@ namespace graphics {
         SDL_Window *window = nullptr;
         SDL_GLContext context;
         bool running = false;
-
+        
+        int fps = 0, lastFPS = 0;
+        bool titleUpdate = false;
+        friend uint32_t second_callback(uint32_t, void *params);
+        
 		std::vector<eventFunc> eventDispatchers;
 		std::vector<renderFunc> renderDispatchers;
 

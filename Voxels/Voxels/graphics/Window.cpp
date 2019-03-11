@@ -20,12 +20,25 @@ graphics::Window::~Window() {
 	SDL_Quit();
 }
 
+uint32_t graphics::second_callback(uint32_t, void *params) {
+    graphics::Window *window = (graphics::Window*) params;
+    if(!window) return 1000;
+    window->lastFPS = window->fps;
+    window->fps = 0;
+    window->titleUpdate = true;
+    return 1000;
+}
+
 void graphics::Window::run() {
     SDL_ShowWindow(window);
     running = true;
 
+    std::chrono::high_resolution_clock clock;
+    SDL_AddTimer(1000, second_callback, this);
+
     SDL_Event e;
     while(running) {
+        auto start = clock.now();
         while(SDL_PollEvent(&e)) {
             if(e.type == SDL_WINDOWEVENT) {
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE) running = false;
@@ -39,6 +52,15 @@ void graphics::Window::run() {
 		for (renderFunc dis : renderDispatchers) dis();
         
         SDL_GL_SwapWindow(window);
+        
+        ++fps;
+        auto end = clock.now();
+        (end - start).count();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / 60) - (end - start));
+        if(titleUpdate) {
+            titleUpdate = false;
+            SDL_SetWindowTitle(window, (std::string("Voxel ") + std::to_string(lastFPS) + " FPS").c_str());
+        }
     }
 }
 
