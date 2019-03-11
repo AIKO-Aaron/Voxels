@@ -10,7 +10,16 @@
 
 using namespace graphics::objects;
 
-Voxel::Voxel() {
+Voxel::Voxel(){
+    init();
+}
+
+Voxel::Voxel(enum::voxelType voxelType) : voxelType(voxelType){
+    init();
+}
+
+
+void Voxel::init(){
     GLuint vboID;
     glGenBuffers(1, &vboID);
     
@@ -49,6 +58,8 @@ Voxel::Voxel() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 36, indicies, GL_STATIC_DRAW);
 }
+
+
 
 void Voxel::render() {
     glBindVertexArray(vaoID);
