@@ -28,35 +28,37 @@ void Voxel::init(){
     
     vertexData *verticies = new vertexData[24];
     
-    verticies[0] = { 0, 0, 0, 0, 0 };
-    verticies[1] = { 1, 0, 0, 1, 0 };
-    verticies[2] = { 1, 1, 0, 1, 1 };
-    verticies[3] = { 0, 1, 0, 0, 1 };
+    float x = 0, y = 0, z = 0, w = 1, h = 1, d = -1;
     
-    verticies[4] = { 0, 0, -1, 0, 0 };
-    verticies[5] = { 0, 1, -1, 0, 1 };
-    verticies[6] = { 1, 1, -1, 1, 1 };
-    verticies[7] = { 1, 0, -1, 1, 0 };
+    verticies[0] = { x, y, z, 0, 0 };
+    verticies[1] = { x + w, y, z, 1, 0 };
+    verticies[2] = { x + w, y + h, z, 1, 1 };
+    verticies[3] = { x, y + h, z, 0, 1 };
     
-    verticies[8]  = { 0, 0, 0, 0, 0 };
-    verticies[9]  = { 0, 1, 0, 0, 1 };
-    verticies[10] = { 0, 1, -1, 1, 1 };
-    verticies[11] = { 0, 0, -1, 1, 0 };
+    verticies[4] = { x, y, z + d, 0, 0 };
+    verticies[5] = { x, y + h, z + d, 0, 1 };
+    verticies[6] = { x + w, y + h, z + d, 1, 1 };
+    verticies[7] = { x + w, y, z + d, 1, 0 };
     
-    verticies[12] = { 1, 0, 0, 0, 0 };
-    verticies[13] = { 1, 0, -1, 0, 1 };
-    verticies[14] = { 1, 1, -1, 1, 1 };
-    verticies[15] = { 1, 1, 0, 1, 0 };
+    verticies[8]  = { x, y, z, 0, 0 };
+    verticies[9]  = { x, y + h, z, 0, 1 };
+    verticies[10] = { x, y + h, z + d, 1, 1 };
+    verticies[11] = { x, y, z + d, 1, 0 };
     
-    verticies[16]  = { 0, 1, 0, 0, 0 };
-    verticies[17]  = { 1, 1, 0, 0, 1 };
-    verticies[18] = { 1, 1, -1, 1, 1 };
-    verticies[19] = { 0, 1, -1, 1, 0 };
+    verticies[12] = { x + w, y, z, 0, 0 };
+    verticies[13] = { x + w, y, z + d, 0, 1 };
+    verticies[14] = { x + w, y + h, z + d, 1, 1 };
+    verticies[15] = { x + w, y + h, z, 1, 0 };
     
-    verticies[20] = { 0, 0, 0, 0, 0 };
-    verticies[21] = { 0, 0, -1, 0, 1 };
-    verticies[22] = { 1, 0, -1, 1, 1 };
-    verticies[23] = { 1, 0, 0, 1, 0 };
+    verticies[16]  = { x, y + h, z, 0, 0 };
+    verticies[17]  = { x + w, y + h, z, 0, 1 };
+    verticies[18] = { x + w, y + h, z + d, 1, 1 };
+    verticies[19] = { x, y + h, z + d, 1, 0 };
+    
+    verticies[20] = { x, y, z, 0, 0 };
+    verticies[21] = { x, y, z + d, 0, 1 };
+    verticies[22] = { x + w, y, z + d, 1, 1 };
+    verticies[23] = { x + w, y, z, 1, 0 };
     
     GLubyte *indicies = new GLubyte[36] {
         0, 1, 2,

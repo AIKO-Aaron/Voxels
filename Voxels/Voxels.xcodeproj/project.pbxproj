@@ -60,6 +60,7 @@
 		930FD97F22324EA9002E553F /* FileUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
 		930FD98022324EA9002E553F /* FileUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtil.hpp; sourceTree = "<group>"; };
 		930FD983223251E2002E553F /* StaticConfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StaticConfig.hpp; sourceTree = "<group>"; };
+		9313BA962236E002000AB321 /* Material.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
 		938E1A202232CE4B0044BB17 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
 		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
@@ -163,6 +164,7 @@
 				938E1A2A223662110044BB17 /* Voxel.hpp */,
 				938E1A2C223662450044BB17 /* Object.cpp */,
 				938E1A2D223662450044BB17 /* Object.hpp */,
+				9313BA962236E002000AB321 /* Material.hpp */,
 			);
 			path = objects;
 			sourceTree = "<group>";

@@ -28,3 +28,11 @@ mat4 translate(vec3 dir) {
                           0, 0, 0, 1));
 }
 
+mat4 perspective(float fov_angle, float near, float far) {
+    float f = 1.0f / atan(fov_angle / 2.0f);
+    return transpose(mat4(f, 0, 0, 0,
+                          0, f, 0, 0,
+                          0, 0, -(near + far) / (near - far), 2 * near * far / (near - far),
+                          0, 0, 1, 0));
+}
+

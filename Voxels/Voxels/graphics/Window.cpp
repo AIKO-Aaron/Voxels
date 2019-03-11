@@ -104,7 +104,7 @@ void graphics::Window::initContext() {
     
     glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
-    
+
 #ifdef DEBUG_GL
     GLuint err = glGetError();
     int i = 0;
