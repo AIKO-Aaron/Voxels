@@ -35,6 +35,7 @@ uint32_t graphics::second_callback(uint32_t, void *params) {
 }
 
 void graphics::Window::run() {
+    SDL_GL_MakeCurrent(window, context);
     SDL_ShowWindow(window);
     running = true;
 

@@ -12,6 +12,7 @@
 		930FD97A2232484D002E553F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930FD9792232484D002E553F /* OpenGL.framework */; };
 		930FD97D22324E44002E553F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97B22324E44002E553F /* Shader.cpp */; };
 		930FD98122324EA9002E553F /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97F22324EA9002E553F /* FileUtil.cpp */; };
+		9313BA982237CD0A000AB321 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA972237CD0A000AB321 /* Material.cpp */; };
 		938E1A242232D6060044BB17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A232232D6060044BB17 /* main.cpp */; };
 		938E1A27223506530044BB17 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A25223506530044BB17 /* Physics.cpp */; };
 		938E1A2B223662110044BB17 /* Voxel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A29223662110044BB17 /* Voxel.cpp */; };
@@ -61,6 +62,7 @@
 		930FD98022324EA9002E553F /* FileUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtil.hpp; sourceTree = "<group>"; };
 		930FD983223251E2002E553F /* StaticConfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StaticConfig.hpp; sourceTree = "<group>"; };
 		9313BA962236E002000AB321 /* Material.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
+		9313BA972237CD0A000AB321 /* Material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		938E1A202232CE4B0044BB17 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
 		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				938E1A2C223662450044BB17 /* Object.cpp */,
 				938E1A2D223662450044BB17 /* Object.hpp */,
 				9313BA962236E002000AB321 /* Material.hpp */,
+				9313BA972237CD0A000AB321 /* Material.cpp */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				4D06550B2236A7660039F342 /* Chunk.cpp in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
 				938E1A2E223662450044BB17 /* Object.cpp in Sources */,
+				9313BA982237CD0A000AB321 /* Material.cpp in Sources */,
 				938E1A3122366EC70044BB17 /* Texture.cpp in Sources */,
 				930FD98122324EA9002E553F /* FileUtil.cpp in Sources */,
 				938E1A27223506530044BB17 /* Physics.cpp in Sources */,

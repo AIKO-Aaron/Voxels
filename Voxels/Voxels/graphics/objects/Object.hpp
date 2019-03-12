@@ -19,6 +19,9 @@
 #  include "SDL_opengl.h"
 #endif
 
+#include "Material.hpp"
+#include "Shader.hpp"
+
 namespace graphics {
     namespace objects {
         
@@ -30,6 +33,7 @@ namespace graphics {
         class Object {
         protected:
             GLuint vaoID;
+            Material material = Material(physics::createVec(1, 1, 1, 1));
             
         public:
             Object();

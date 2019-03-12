@@ -23,6 +23,7 @@ namespace physics {
     
     static vec2 createVec(float x, float y) { vec2 v = vec2(); v[0] = x; v[1] = y; return v; }
     static vec3 createVec(float x, float y, float z) { vec3 v = vec3(); v[0] = x; v[1] = y; v[2] = z; return v; }
+    static vec4 createVec(float x, float y, float z, float w) { vec4 v = vec4(); v[0] = x; v[1] = y; v[2] = z; v[3] = w; return v; }
 
 }
 

@@ -9,16 +9,30 @@
 #ifndef Material_hpp
 #define Material_hpp
 
+#include "../../math/Physics.hpp"
+#include "../Texture.hpp"
+#include "../Shader.hpp"
+
 namespace graphics {
     namespace objects {
         
-#pragma pack(push, 1)
-        typedef struct {
+        class Material {
+        private:
+            bool isTextured = false;
+            physics::vec4 color;
+            graphics::Texture *texture = nullptr;
+
+            graphics::Texture *ambientTexture = nullptr;
+            graphics::Texture *diffuseTexture = nullptr;
+            graphics::Texture *specularTexture = nullptr;
             
+        public:
+            Material(physics::vec4 color);
+            Material(Texture *texture);
             
-            
-        } Material;
-#pragma pack(pop)
+            void use(Shader *shader);
+
+        };
     
     }
 }
