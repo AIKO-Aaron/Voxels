@@ -26,6 +26,8 @@ void Voxel::init(){
     GLuint iboID;
     glGenBuffers(1, &iboID);
     
+    texture = new graphics::Texture("assets/textures/cube/water.png");
+    
     vertexData *verticies = new vertexData[24];
     
     float x = 0, y = 0, z = 0, w = 1, h = 1, d = -1;
@@ -96,6 +98,7 @@ void Voxel::init(){
 
 
 void Voxel::render() {
+    texture->bind(GL_TEXTURE0);
     glBindVertexArray(vaoID);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0);
 }

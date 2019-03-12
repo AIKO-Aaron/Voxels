@@ -26,7 +26,9 @@ namespace graphics {
         Shader(const char *vertSrc, const char *fragSrc);
         
         inline void bind() { glUseProgram(shaderID); }
-        
+    
+        inline void uniformi(const char *name, int v) { glUniform1i(glGetUniformLocation(shaderID, name), v); };
+
         inline void uniformf(const char *name, float v) { glUniform1f(glGetUniformLocation(shaderID, name), v); };
         inline void uniformf(const char *name, physics::vec2 v) { glUniform2f(glGetUniformLocation(shaderID, name), v[0], v[1]); };
         inline void uniformf(const char *name, physics::vec3 v) { glUniform3f(glGetUniformLocation(shaderID, name), v[0], v[1], v[2]); };

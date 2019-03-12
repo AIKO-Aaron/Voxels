@@ -10,8 +10,9 @@
 #define Voxel_hpp
 
 #include "../../math/Physics.hpp"
-
 #include "Object.hpp"
+#include "../Texture.hpp"
+
 enum voxelType{
     BLANK = 0
 };
@@ -20,6 +21,7 @@ namespace graphics {
     namespace objects {
         class Voxel : public Object {
         private:
+            graphics::Texture *texture;
             
         public:
             //type and color
