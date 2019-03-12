@@ -15,10 +15,14 @@
 
 #include <vector>
 
+
+#define PI 3.14
+#define MOVESPEED 0.3
+
 std::vector<graphics::Chunk*> chunks;
 graphics::Shader *shader;
 // For the shaders
-physics::vec3 playerPos, playerAngle;
+physics::vec3 playerPos, playerAngle, moveVec;
 float currentTime = 0;
 
 void render(graphics::Window *window) {
@@ -32,18 +36,65 @@ void render(graphics::Window *window) {
 
     currentTime += 0.01;
     
-    if(window->isKeyPressed(SDL_SCANCODE_D)) playerPos -= physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1]));
-    if(window->isKeyPressed(SDL_SCANCODE_A)) playerPos += physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1]));
-    if(window->isKeyPressed(SDL_SCANCODE_W)) playerPos -= physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1]));
-    if(window->isKeyPressed(SDL_SCANCODE_S)) playerPos += physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1]));
-
-    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) playerPos -= physics::createVec(0, 0.1, 0);
-    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) playerPos += physics::createVec(0, 0.1, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_D)) moveVec -= physics::createVec(0, 0, 0.025);
+    else {
+        if (moveVec[2] < 0){
+            moveVec += physics::createVec(0, 0, 0.025);
+            if (moveVec[2] > 0) moveVec[2] = 0;
+        }
+    }
+    if(window->isKeyPressed(SDL_SCANCODE_A)) moveVec += physics::createVec(0, 0, 0.025);
+    else {
+        if (moveVec[2] > 0){
+            moveVec -= physics::createVec(0, 0, 0.025);
+            if (moveVec[2] < 0) moveVec[2] = 0;
+        }
+    }
+    if(window->isKeyPressed(SDL_SCANCODE_W)) moveVec += physics::createVec(0.025, 0, 0);
+    else {
+        if (moveVec[0] > 0){
+            moveVec -= physics::createVec(0.025, 0, 0);
+            if (moveVec[0] < 0) moveVec[0] = 0;
+        }
+    }
+    if(window->isKeyPressed(SDL_SCANCODE_S)) moveVec -= physics::createVec(0.025, 0, 0);
+    else {
+        if (moveVec[0] < 0){
+            moveVec += physics::createVec(0.025, 0, 0);
+            if (moveVec[0] > 0) moveVec[0] = 0;
+        }
+    }
+    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) moveVec -= physics::createVec(0, 0.025, 0);
+    else {
+        if (moveVec[1] < 0){
+            moveVec += physics::createVec(0, 0.025, 0);
+            if (moveVec[1] > 0) moveVec[1] = 0;
+        }
+    }
+    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) moveVec += physics::createVec(0, 0.025, 0);
+    else {
+        if (moveVec[1] > 0){
+            moveVec -= physics::createVec(0, 0.025, 0);
+            if (moveVec[1] < 0) moveVec[1] = 0;
+        }
+    }
+    
+    //limit the direction vector to length 1
+    float len = sqrt(pow(moveVec[0],2) + pow(moveVec[1],2) + pow(moveVec[2],2));
+    if (len > 1) {
+        moveVec /= len;
+    }
+    
+    playerPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
+    playerPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
+    playerPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
 }
 
 void handleEvent(SDL_Event e) {
     if(e.type == SDL_MOUSEMOTION) {
         playerAngle += physics::createVec(e.motion.yrel / 200.0f, -e.motion.xrel / 200.0f, 0);
+        if (playerAngle[0] < -PI/2) playerAngle[0] = -PI/2;
+        if (playerAngle[0] > PI/2) playerAngle[0] = PI/2;
     }
 }
 
