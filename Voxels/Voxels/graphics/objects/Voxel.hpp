@@ -14,7 +14,8 @@
 #include "../Texture.hpp"
 
 enum voxelType{
-    BLANK = 0
+    BLANK = 0,
+    
 };
 
 namespace graphics {
