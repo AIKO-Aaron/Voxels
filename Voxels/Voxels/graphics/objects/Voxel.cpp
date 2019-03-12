@@ -11,15 +11,18 @@
 using namespace graphics::objects;
 
 Voxel::Voxel() : voxelType(BLANK) {
-    init();
+    init(0, 0, 0, 1, 1, 1);
 }
 
 Voxel::Voxel(enum::voxelType voxelType) : voxelType(voxelType){
-    init();
+    init(0, 0, 0, 1, 1, 1);
 }
 
+Voxel::Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d) : voxelType(voxelType){
+    init(x, y, z, w, h, d);
+}
 
-void Voxel::init(){
+void Voxel::init(float x, float y, float z, float w, float h, float d) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     
@@ -29,8 +32,6 @@ void Voxel::init(){
     texture = new graphics::Texture("assets/textures/cube/water.png");
     
     vertexData *verticies = new vertexData[24];
-    
-    float x = 0, y = 0, z = 0, w = 1, h = 1, d = -1;
     
     verticies[0] = { x, y, z, 0, 0 };
     verticies[1] = { x + w, y, z, 1, 0 };
@@ -94,8 +95,6 @@ void Voxel::init(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 36, indicies, GL_STATIC_DRAW);
 }
-
-
 
 void Voxel::render() {
     texture->bind(GL_TEXTURE0);

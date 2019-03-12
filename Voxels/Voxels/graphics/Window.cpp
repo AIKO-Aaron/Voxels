@@ -12,6 +12,11 @@ graphics::Window::Window() {
     initGL();
     window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
     initContext();
+    
+    keys = SDL_GetKeyboardState(nullptr);
+    SDL_CaptureMouse(SDL_TRUE);
+    SDL_ShowCursor(SDL_DISABLE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 graphics::Window::~Window() {
@@ -42,14 +47,14 @@ void graphics::Window::run() {
         while(SDL_PollEvent(&e)) {
             if(e.type == SDL_WINDOWEVENT) {
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE) running = false;
-            }
+            } else if(e.type == SDL_QUIT) running = false;
 
 			for (eventFunc dis : eventDispatchers) dis(e);
         }
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-		for (renderFunc dis : renderDispatchers) dis();
+		for (renderFunc dis : renderDispatchers) dis(this);
         
         SDL_GL_SwapWindow(window);
         

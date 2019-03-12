@@ -31,7 +31,8 @@
 
 namespace graphics {
     
-    typedef void (*renderFunc)();
+    class Window;
+    typedef void (*renderFunc)(Window *window);
 	typedef void(*eventFunc)(SDL_Event e);
     
     class Window {
@@ -39,6 +40,8 @@ namespace graphics {
         SDL_Window *window = nullptr;
         SDL_GLContext context;
         bool running = false;
+        
+        const uint8_t *keys;
         
         int fps = 0, lastFPS = 0;
         bool titleUpdate = false;
@@ -56,6 +59,7 @@ namespace graphics {
 
 		inline void addRenderFunc(renderFunc f) { renderDispatchers.push_back(f); }
 		inline void addEventFunc(eventFunc f) { eventDispatchers.push_back(f); }
+        inline bool isKeyPressed(int index) { return keys[index] > 0; }
 
         void run();
     };

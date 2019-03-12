@@ -30,7 +30,8 @@ namespace graphics {
             
             Voxel();
             Voxel(enum::voxelType voxelType);
-            void init();
+            Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d);
+            void init(float x, float y, float z, float w, float h, float d);
             void render();
         };
         

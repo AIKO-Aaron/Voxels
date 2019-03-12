@@ -21,7 +21,8 @@ namespace physics {
     typedef math::Matrix<3, 3> mat3; // Like GLSL
     typedef math::Matrix<4, 4> mat4; // Like GLSL
     
-    
+    static vec2 createVec(float x, float y) { vec2 v = vec2(); v[0] = x; v[1] = y; return v; }
+    static vec3 createVec(float x, float y, float z) { vec3 v = vec3(); v[0] = x; v[1] = y; v[2] = z; return v; }
 
 }
 
