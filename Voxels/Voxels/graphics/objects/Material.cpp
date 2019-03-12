@@ -18,9 +18,10 @@ Material::Material(Texture *texture) : texture(texture) {
     isTextured = true;
 }
 
-inline void Material::use(Shader *shader) {
+void Material::use(Shader *shader) {
+    shader->uniformi("isTextured", isTextured ? 1 : 0);
     if(isTextured) {
-        shader->uniformf("texture", 0);
+        shader->uniformf("tex", 0);
         texture->bind(GL_TEXTURE0);
     } else {
         shader->uniformf("color", color);

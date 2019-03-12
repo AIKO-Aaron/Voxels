@@ -43,6 +43,8 @@ namespace math {
         inline Vector<D> operator -(float vec) { Vector<D> result; for(int i = 0; i < D; i++) result[i] = values[i] - vec; return result; }
         inline Vector<D> operator +=(float vec) { for(int i = 0; i < D; i++) values[i] += vec; return *this; }
         inline Vector<D> operator -=(float vec) { for(int i = 0; i < D; i++) values[i] -= vec; return *this; }
+    
+        inline void normalize() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; operator/=(1.0f / sqrt(len)); }
     };
 }
 

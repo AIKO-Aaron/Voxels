@@ -34,11 +34,14 @@ namespace graphics {
         protected:
             GLuint vaoID;
             Material material = Material(physics::createVec(1, 1, 1, 1));
+            Shader *shader;
             
         public:
-            Object();
+            Object(Shader *shader);
             virtual void render() = 0;
             
+            inline void setShader(Shader *shader) { this->shader = shader; }
+            inline const Shader* getShader() { return shader; }
         };
         
     }

@@ -22,17 +22,15 @@ namespace graphics {
     namespace objects {
         class Voxel : public Object {
         private:
-            graphics::Texture *texture;
             
         public:
             //type and color
-            physics::vec4 color;
             voxelType voxelType;
             
-            Voxel();
-            Voxel(enum::voxelType voxelType);
-            Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d);
-            void init(float x, float y, float z, float w, float h, float d);
+            Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m);
+            //Voxel(enum::voxelType voxelType);
+            //Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m);
+            void init(float x, float y, float z, float w, float h, float d, Material m);
             void render();
         };
         

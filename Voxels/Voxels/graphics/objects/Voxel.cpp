@@ -10,26 +10,30 @@
 
 using namespace graphics::objects;
 
-Voxel::Voxel() : voxelType(BLANK) {
-    init(0, 0, 0, 1, 1, 1);
+/**Voxel::Voxel() : voxelType(BLANK) {
+    init(0, 0, 0, 1, 1, 1, Material(physics::createVec(1, 1, 1, 1)));
 }
 
 Voxel::Voxel(enum::voxelType voxelType) : voxelType(voxelType){
-    init(0, 0, 0, 1, 1, 1);
+    init(0, 0, 0, 1, 1, 1, Material(physics::createVec(1, 1, 1, 1)));
 }
 
-Voxel::Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d) : voxelType(voxelType){
-    init(x, y, z, w, h, d);
+Voxel::Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : voxelType(voxelType){
+    init(x, y, z, w, h, d, m);
+}*/
+
+Voxel::Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader), voxelType(voxelType) {
+    init(x, y, z, w, h, d, m);
 }
 
-void Voxel::init(float x, float y, float z, float w, float h, float d) {
+void Voxel::init(float x, float y, float z, float w, float h, float d, Material mat) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     
     GLuint iboID;
     glGenBuffers(1, &iboID);
     
-    texture = new graphics::Texture("assets/textures/cube/water.png");
+    material = mat;
     
     vertexData *verticies = new vertexData[24];
     
@@ -97,7 +101,7 @@ void Voxel::init(float x, float y, float z, float w, float h, float d) {
 }
 
 void Voxel::render() {
-    texture->bind(GL_TEXTURE0);
+    material.use(shader);
     glBindVertexArray(vaoID);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0);
 }

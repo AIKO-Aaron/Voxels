@@ -10,13 +10,11 @@ uniform vec3 playerPos;
 uniform vec3 playerView;
 
 out vec4 pos;
-out vec4 col;
 out vec2 uv;
 
 void main() {
 	gl_Position = perspective(PI / 2.0, 0.1, 100) * (rotate_x(playerView.x) * rotate_y(playerView.y) * rotate_z(playerView.z)) * translate(playerPos) * vec4(vertPosition, 1);
 
-	col = vec4(uvPosition.x, 0, uvPosition.y, 1);
 	pos = gl_Position;
     uv = uvPosition;
 }

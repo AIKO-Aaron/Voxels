@@ -81,10 +81,8 @@ void render(graphics::Window *window) {
     
     //limit the direction vector to length 1
     float len = sqrt(pow(moveVec[0],2) + pow(moveVec[1],2) + pow(moveVec[2],2));
-    if (len > 1) {
-        moveVec /= len;
-    }
-    
+    if (len > 1) moveVec /= len;
+        
     playerPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
     playerPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
     playerPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
@@ -101,13 +99,15 @@ void handleEvent(SDL_Event e) {
 int main(int argc, char **args) {
     graphics::Window window = graphics::Window();
     
-    //push a test voxel into a junk
-    chunks.push_back(new graphics::Chunk(0,0));
-    chunks[0]->voxels.push_back(new graphics::objects::Voxel(BLANK, 0, 0, 0, 1, 1, 1));
-    chunks[0]->voxels.push_back(new graphics::objects::Voxel(BLANK, 1, 0, 0, 1, 1, 1));
-    
     shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
     shader->bind();
+
+    //push a test voxel into a junk
+    chunks.push_back(new graphics::Chunk(0,0));
+    graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
+    graphics::objects::Material m2 = graphics::objects::Material(physics::createVec(1, 1, 1, 1));
+    chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1));
+    chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, 1, 0, 0, 1, 1, 1, m2));
     
 	window.addEventFunc(handleEvent);
 	window.addRenderFunc(render);
