@@ -15,14 +15,10 @@
 
 #include <vector>
 
-
-#define PI 3.14
-#define MOVESPEED 0.3
-
 std::vector<graphics::Chunk*> chunks;
 graphics::Shader *shader;
 // For the shaders
-physics::vec3 playerPos, playerAngle, moveVec;
+physics::vec3 playerPos = physics::createVec(0, -2, 0), playerAngle, moveVec;
 float currentTime = 0;
 
 void render(graphics::Window *window) {
@@ -36,45 +32,45 @@ void render(graphics::Window *window) {
 
     currentTime += 0.01;
     
-    if(window->isKeyPressed(SDL_SCANCODE_D)) moveVec -= physics::createVec(0, 0, 0.025);
+    if(window->isKeyPressed(SDL_SCANCODE_D)) moveVec -= physics::createVec(0, 0, ACCELERATION);
     else {
-        if (moveVec[2] < 0){
-            moveVec += physics::createVec(0, 0, 0.025);
+        if (moveVec[2] < 0) {
+            moveVec += physics::createVec(0, 0, ACCELERATION);
             if (moveVec[2] > 0) moveVec[2] = 0;
         }
     }
-    if(window->isKeyPressed(SDL_SCANCODE_A)) moveVec += physics::createVec(0, 0, 0.025);
+    if(window->isKeyPressed(SDL_SCANCODE_A)) moveVec += physics::createVec(0, 0, ACCELERATION);
     else {
-        if (moveVec[2] > 0){
-            moveVec -= physics::createVec(0, 0, 0.025);
+        if (moveVec[2] > 0) {
+            moveVec -= physics::createVec(0, 0, ACCELERATION);
             if (moveVec[2] < 0) moveVec[2] = 0;
         }
     }
-    if(window->isKeyPressed(SDL_SCANCODE_W)) moveVec += physics::createVec(0.025, 0, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_W)) moveVec += physics::createVec(ACCELERATION, 0, 0);
     else {
-        if (moveVec[0] > 0){
-            moveVec -= physics::createVec(0.025, 0, 0);
+        if (moveVec[0] > 0) {
+            moveVec -= physics::createVec(ACCELERATION, 0, 0);
             if (moveVec[0] < 0) moveVec[0] = 0;
         }
     }
-    if(window->isKeyPressed(SDL_SCANCODE_S)) moveVec -= physics::createVec(0.025, 0, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_S)) moveVec -= physics::createVec(ACCELERATION, 0, 0);
     else {
-        if (moveVec[0] < 0){
-            moveVec += physics::createVec(0.025, 0, 0);
+        if (moveVec[0] < 0) {
+            moveVec += physics::createVec(ACCELERATION, 0, 0);
             if (moveVec[0] > 0) moveVec[0] = 0;
         }
     }
-    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) moveVec -= physics::createVec(0, 0.025, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) moveVec -= physics::createVec(0, ACCELERATION, 0);
     else {
-        if (moveVec[1] < 0){
-            moveVec += physics::createVec(0, 0.025, 0);
+        if (moveVec[1] < 0) {
+            moveVec += physics::createVec(0, ACCELERATION, 0);
             if (moveVec[1] > 0) moveVec[1] = 0;
         }
     }
-    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) moveVec += physics::createVec(0, 0.025, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) moveVec += physics::createVec(0, ACCELERATION, 0);
     else {
-        if (moveVec[1] > 0){
-            moveVec -= physics::createVec(0, 0.025, 0);
+        if (moveVec[1] > 0) {
+            moveVec -= physics::createVec(0, ACCELERATION, 0);
             if (moveVec[1] < 0) moveVec[1] = 0;
         }
     }
@@ -82,7 +78,7 @@ void render(graphics::Window *window) {
     //limit the direction vector to length 1
     float len = sqrt(pow(moveVec[0],2) + pow(moveVec[1],2) + pow(moveVec[2],2));
     if (len > 1) moveVec /= len;
-        
+    
     playerPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
     playerPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
     playerPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
@@ -91,8 +87,8 @@ void render(graphics::Window *window) {
 void handleEvent(SDL_Event e) {
     if(e.type == SDL_MOUSEMOTION) {
         playerAngle += physics::createVec(e.motion.yrel / 200.0f, -e.motion.xrel / 200.0f, 0);
-        if (playerAngle[0] < -PI/2) playerAngle[0] = -PI/2;
-        if (playerAngle[0] > PI/2) playerAngle[0] = PI/2;
+        if (playerAngle[0] < -PI_HALF) playerAngle[0] = -PI_HALF;
+        if (playerAngle[0] > PI_HALF) playerAngle[0] = PI_HALF;
     }
 }
 
@@ -105,9 +101,8 @@ int main(int argc, char **args) {
     //push a test voxel into a junk
     chunks.push_back(new graphics::Chunk(0,0));
     graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
-    graphics::objects::Material m2 = graphics::objects::Material(physics::createVec(1, 1, 1, 1));
-    chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1));
-    chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, 1, 0, 0, 1, 1, 1, m2));
+    graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
+    for(int i = 0; i < 100; i++) chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, i % 10, 0, i / 10, 1, 1, 1, (i % 10 + i / 10) % 2 == 0 ? m1 : m2));
     
 	window.addEventFunc(handleEvent);
 	window.addRenderFunc(render);

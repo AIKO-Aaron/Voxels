@@ -53,7 +53,9 @@ namespace math {
 
         template <int T>
         Matrix<M, T> operator*(Matrix<N, T> other);
+        Vector<M> operator*(Vector<N> other);
 
+        
 		Matrix<M, N> operator*(float scalar);
 		Matrix<M, N> operator*=(float scalar);
 		Matrix<M, N> operator/(float scalar);
@@ -88,6 +90,14 @@ inline math::Matrix<M, T> math::Matrix<M, N>::operator*(Matrix<N, T> other) {
     for(int i = 0; i < M * T; i++) for(int j = 0; j < N; j++) result.values[i] += other.values[i % T + j * T] * values[(i / T) * N + j];
     return result;
 }
+
+template <int M, int N>
+inline math::Vector<M> math::Matrix<M, N>::operator*(Vector<N> other) {
+    math::Vector<M> result;
+    for(int i = 0; i < M; i++) for(int j = 0; j < N; j++) result[i] += values[i * N + j] * other[j];
+    return result;
+}
+
 
 template <int M, int N>
 math::Matrix<M, N> math::Matrix<M, N>::operator*(float scalar) {

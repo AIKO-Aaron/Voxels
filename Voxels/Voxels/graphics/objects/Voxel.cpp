@@ -10,18 +10,6 @@
 
 using namespace graphics::objects;
 
-/**Voxel::Voxel() : voxelType(BLANK) {
-    init(0, 0, 0, 1, 1, 1, Material(physics::createVec(1, 1, 1, 1)));
-}
-
-Voxel::Voxel(enum::voxelType voxelType) : voxelType(voxelType){
-    init(0, 0, 0, 1, 1, 1, Material(physics::createVec(1, 1, 1, 1)));
-}
-
-Voxel::Voxel(enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : voxelType(voxelType){
-    init(x, y, z, w, h, d, m);
-}*/
-
 Voxel::Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader), voxelType(voxelType) {
     init(x, y, z, w, h, d, m);
 }
