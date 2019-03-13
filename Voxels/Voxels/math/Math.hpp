@@ -11,6 +11,7 @@
 
 #include "Vector.hpp"
 #include "Matrix.hpp"
+#include "Perlin.hpp"
 
 #define PI (3.14159265358979323f)
 #define PI_HALF (PI / 2.0f)

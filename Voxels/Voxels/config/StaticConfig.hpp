@@ -14,7 +14,7 @@
 //################################
 
 // #define DEBUG_GL // If we need more output about our current OpenGL setup
-
+#define DEBUG_RANDOM
 
 //################################
 // Window
@@ -30,5 +30,6 @@
 
 #define MOVESPEED 0.3f
 #define ACCELERATION 0.15f
+#define MOUSE_SENSITIVITY 1.0f
 
 #endif /* StaticConfig_h */
