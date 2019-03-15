@@ -30,11 +30,16 @@ namespace graphics {
             float u, v;
         } vertexData;
         
+        typedef struct{
+            float x, y, z, h, w, d;
+       }objectData;
+        
         class Object {
         protected:
             GLuint vaoID;
             Material material = Material(physics::createVec(1, 1, 1, 1));
             Shader *shader;
+            objectData objectData;
             
         public:
             Object(Shader *shader);

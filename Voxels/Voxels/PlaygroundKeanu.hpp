@@ -15,14 +15,17 @@
 #include "math/Physics.hpp"
 #include "graphics/objects/Voxel.hpp"
 #include "graphics/Chunk.hpp"
+#include "graphics/Entity/Entity.hpp"
 
 #include <vector>
 
 
 std::vector<graphics::Chunk*> chunks;
+std::vector<graphics::entities::Entity*> entities;
+graphics::entities::Entity* player;
 graphics::Shader *shader;
 // For the shaders
-physics::vec3 playerPos = physics::createVec(0, -2, 0), playerAngle, moveVec;
+physics::vec3 cameraPos = physics::createVec(0, -2, 0), playerAngle, moveVec, cameraAngle;
 float currentTime = 0;
 
 /**
@@ -42,6 +45,7 @@ static void initPlayground() {
         int z = i / 10;
         chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, x, 0, z, 1, 1, 1, (x + z) % 2 == 0 ? m1 : m2));
     }
+    player = new graphics::entities::Entity(shader, 2, 1, 2, Player);
 }
 
 /**
@@ -51,9 +55,14 @@ static void render(graphics::Window *window) {
     glClearColor(0, 0, 0, 1); // Clear background to black
     
     for (int i = 0; i < chunks.size(); i++) chunks[i]->render();
+    for (int i = 0; i < entities.size(); i++) entities[i]->update();
+    for (int i = 0; i < entities.size(); i++) entities[i]->render();
+    player->render();
+    
+    
     
     shader->uniformf("time", currentTime);
-    shader->uniformf("playerPos", playerPos);
+    shader->uniformf("cameraPos", cameraPos);
     shader->uniformf("playerView", playerAngle);
     
     currentTime += 0.01;
@@ -105,9 +114,12 @@ static void render(graphics::Window *window) {
     float len = moveVec.len();
     if (len > 1) moveVec /= len;
     
-    playerPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
-    playerPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
-    playerPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
+    /*
+    cameraPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
+    cameraPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
+    cameraPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
+     */
+    player->move(moveVec * MOVESPEED);
 }
 
 /**
