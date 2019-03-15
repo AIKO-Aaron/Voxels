@@ -38,13 +38,10 @@ static void initPlayground() {
     
     graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
     graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
-    for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = 10.0f * perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f);
+    for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = 5.0f * perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f);
     
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
         for(int j = 0; j < TEST_FLOOR_SIZE - 1; j++) {
-            // Connect (i|j), (i+1|j), (i|j+1)
-            // Connect (...
-            
             physics::vec3 p1 = physics::createVec(i, floorHeights[i + j * TEST_FLOOR_SIZE], j);
             physics::vec3 p2 = physics::createVec(i + 1, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], j);
             physics::vec3 p3 = physics::createVec(i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], j + 1);
