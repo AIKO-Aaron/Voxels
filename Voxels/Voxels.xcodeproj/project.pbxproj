@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D06550B2236A7660039F342 /* Chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D0655092236A7660039F342 /* Chunk.cpp */; };
+		4D06550E223A5A8C0039F342 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D06550C223A5A8C0039F342 /* Entity.cpp */; };
 		930FD977223243D1002E553F /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD975223243D1002E553F /* Window.cpp */; };
 		930FD97A2232484D002E553F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930FD9792232484D002E553F /* OpenGL.framework */; };
 		930FD97D22324E44002E553F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD97B22324E44002E553F /* Shader.cpp */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		4D0655092236A7660039F342 /* Chunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Chunk.cpp; sourceTree = "<group>"; };
 		4D06550A2236A7660039F342 /* Chunk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chunk.hpp; sourceTree = "<group>"; };
+		4D06550C223A5A8C0039F342 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		4D06550D223A5A8C0039F342 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
 		930FD975223243D1002E553F /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		930FD976223243D1002E553F /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		930FD9792232484D002E553F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -114,9 +117,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D06550F223A5AB30039F342 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				4D06550C223A5A8C0039F342 /* Entity.cpp */,
+				4D06550D223A5A8C0039F342 /* Entity.hpp */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		930FD973223243B9002E553F /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				4D06550F223A5AB30039F342 /* Entity */,
 				938E1A282236603A0044BB17 /* objects */,
 				930FD975223243D1002E553F /* Window.cpp */,
 				930FD976223243D1002E553F /* Window.hpp */,
@@ -300,6 +313,7 @@
 			files = (
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
 				4D06550B2236A7660039F342 /* Chunk.cpp in Sources */,
+				4D06550E223A5A8C0039F342 /* Entity.cpp in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
 				9313BA9E223978BC000AB321 /* Perlin.cpp in Sources */,
 				938E1A2E223662450044BB17 /* Object.cpp in Sources */,
@@ -435,7 +449,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8DMX39VBGM;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
@@ -455,7 +469,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8DMX39VBGM;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (

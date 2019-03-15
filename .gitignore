@@ -52,3 +52,4 @@ Voxels/Voxels.xcodeproj/project.pbxproj
 ./Voxels/Voxels/glew/**
 *.pbxproj
 Voxels/Voxels/glew
+*.pbxproj
