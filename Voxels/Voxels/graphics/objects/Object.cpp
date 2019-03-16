@@ -8,7 +8,20 @@
 
 #include "Object.hpp"
 
-graphics::objects::Object::Object(Shader *sh) : shader(sh) {
+using namespace graphics::objects;
+
+Object::Object(graphics::Shader *sh, int vc) : shader(sh), vertexCount(vc) {
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
+
+	glGenBuffers(1, &vboID);
+	glGenBuffers(1, &iboID);
+}
+
+void Object::render() {
+	shader->uniformf("vertPos", data.position);
+	shader->uniformf("vertRot", data.rotation);
+	material.use(shader);
+	glBindVertexArray(vaoID);
+	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_BYTE, 0);
 }

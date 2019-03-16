@@ -36,13 +36,13 @@ void Entity::update() {
 }
 
 void Entity::render() {
-    for (int i = 0; i < data.voxels.size(); i++) {
+    for (size_t i = 0; i < data.voxels.size(); i++) {
         data.voxels[i]->render();
     }
 }
 
 void Entity::move(physics::vec3 dxyz) {
-    for (int i = 0; i < data.voxels.size(); i++) {
+    for (size_t i = 0; i < data.voxels.size(); i++) {
         data.voxels[i]->move(dxyz);
     }
 }

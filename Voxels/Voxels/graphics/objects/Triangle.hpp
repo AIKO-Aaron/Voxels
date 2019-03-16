@@ -20,7 +20,6 @@ namespace graphics {
         public:
             
             Triangle(Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material m);
-            void render();
         };
         
     }

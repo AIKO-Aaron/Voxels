@@ -10,13 +10,7 @@
 
 using namespace graphics::objects;
 
-Triangle::Triangle(graphics::Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material mat) : Object(shader) {
-    GLuint vboID;
-    glGenBuffers(1, &vboID);
-    
-    GLuint iboID;
-    glGenBuffers(1, &iboID);
-    
+Triangle::Triangle(graphics::Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material mat) : Object(shader, 3) {
     material = mat;
     
     vertexData *verticies = new vertexData[3];
@@ -40,10 +34,4 @@ Triangle::Triangle(graphics::Shader *shader, physics::vec3 p1, physics::vec3 p2,
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 3, indicies, GL_STATIC_DRAW);
-}
-
-void Triangle::render() {
-    glBindVertexArray(vaoID);
-    material.use(shader);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, 0);
 }

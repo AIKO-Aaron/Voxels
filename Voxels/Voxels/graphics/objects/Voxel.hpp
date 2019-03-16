@@ -22,9 +22,7 @@ enum voxelType{
 namespace graphics {
     namespace objects {
         class Voxel : public Object {
-        private:
-            int privateVboID;
-            
+        private:            
         public:
             //type and color
             voxelType voxelType;
@@ -32,9 +30,6 @@ namespace graphics {
             Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m);
             
             void init(float x, float y, float z, float w, float h, float d, Material m);
-            void move(physics::vec3 dxyz);
-            void update();
-            void render();
         };
         
     }

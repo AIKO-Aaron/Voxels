@@ -160,6 +160,9 @@
     <ClInclude Include="math\Matrix.hpp" />
     <ClInclude Include="math\Perlin.hpp" />
     <ClInclude Include="math\Physics.hpp" />
+    <ClInclude Include="math\physics\PhysicsElement.hpp" />
+    <ClInclude Include="math\physics\PhysicsEnvironment.hpp" />
+    <ClInclude Include="math\physics\PhysicUtil.hpp" />
     <ClInclude Include="math\Vector.hpp" />
     <ClInclude Include="PlaygroundAaron.hpp" />
     <ClInclude Include="PlaygroundKeanu.hpp" />
@@ -184,6 +187,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Perlin.cpp" />
     <ClCompile Include="math\Physics.cpp" />
+    <ClCompile Include="math\physics\PhysicsElement.cpp" />
+    <ClCompile Include="math\physics\PhysicsEnvironment.cpp" />
     <ClCompile Include="util\FileUtil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
