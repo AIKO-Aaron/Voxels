@@ -20,7 +20,7 @@
 #endif
 
 #include "Material.hpp"
-#include "Shader.hpp"
+#include "../Shader.hpp"
 
 namespace graphics {
     namespace objects {
@@ -32,7 +32,7 @@ namespace graphics {
         
         typedef struct{
             float x, y, z, h, w, d;
-       }objectData;
+       } objectData;
         
         class Object {
         protected:

@@ -10,7 +10,7 @@
 
 using namespace graphics::objects;
 
-Voxel::Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader), voxelType(voxelType) {
+Voxel::Voxel(graphics::Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader), voxelType(voxelType) {
     init(x, y, z, w, h, d, m);
 }
 

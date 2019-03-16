@@ -10,7 +10,7 @@
 
 using namespace graphics::objects;
 
-Triangle::Triangle(Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material mat) : Object(shader) {
+Triangle::Triangle(graphics::Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material mat) : Object(shader) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     

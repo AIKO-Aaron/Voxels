@@ -6,6 +6,7 @@
 //  Copyright © 2019 Aaron Hodel. All rights reserved.
 //
 
+#include "config/StaticConfig.hpp"
 #ifdef _PROJ_TEST_AARON
 #  include "PlaygroundAaron.hpp"
 #else

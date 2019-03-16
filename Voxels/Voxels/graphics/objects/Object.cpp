@@ -8,7 +8,7 @@
 
 #include "Object.hpp"
 
-graphics::objects::Object::Object(Shader *shader) : shader(shader) {
+graphics::objects::Object::Object(Shader *sh) : shader(sh) {
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
 }

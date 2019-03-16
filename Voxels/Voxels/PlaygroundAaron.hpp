@@ -27,7 +27,7 @@ physics::vec3 playerPos = physics::createVec(0, -2, 0), playerAngle, moveVec;
 float currentTime = 0;
 
 static void initPlayground() {
-    shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
+    shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
 #ifdef DEBUG_RANDOM
@@ -61,7 +61,7 @@ void render(graphics::Window *window) {
     for (int i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
     
     shader->uniformf("time", currentTime);
-    shader->uniformf("playerPos", playerPos);
+    shader->uniformf("cameraPos", playerPos);
     shader->uniformf("playerView", playerAngle);
     
     currentTime += 0.01;
