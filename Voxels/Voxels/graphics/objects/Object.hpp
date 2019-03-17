@@ -20,7 +20,8 @@
 #endif
 
 #include "Material.hpp"
-#include "Shader.hpp"
+#include "../Shader.hpp"
+#include "../../math/Physics.hpp"
 
 namespace graphics {
     namespace objects {
@@ -31,20 +32,29 @@ namespace graphics {
         } vertexData;
         
         typedef struct{
-            float x, y, z, h, w, d;
-       }objectData;
+			physics::vec3 size;
+			physics::vec3 rotation;
+       } objectData;
         
-        class Object {
+        class Object : public physics::Element {
+		private:
+			int vertexCount;
+
         protected:
-            GLuint vaoID;
+            GLuint vaoID, vboID, iboID;
             Material material = Material(physics::createVec(1, 1, 1, 1));
             Shader *shader;
-            objectData objectData;
+            objectData data;
             
         public:
-            Object(Shader *shader);
-            virtual void render() = 0;
+            Object(Shader *shader, int vertexCount);
+            void render();
             
+			inline void move(physics::vec3 dxyz) { position += dxyz; }
+			inline void rotate(physics::vec3 dxyz) { data.rotation += dxyz; }
+
+			inline objectData getData() { return data; }
+
             inline void setShader(Shader *shader) { this->shader = shader; }
             inline const Shader* getShader() { return shader; }
         };

@@ -23,6 +23,14 @@ mat4 rotate_z(float angle) {
                           0, 0, 0, 1));
 }
 
+mat4 rotate(vec3 angles) {
+	return (rotate_z(angles.z) * rotate_y(angles.y) * rotate_x(angles.x));
+}
+
+mat4 rotate_camera(vec3 angles) {
+	return (rotate_x(angles.x) * rotate_y(angles.y) * rotate_z(angles.z));
+}
+
 mat4 translate(vec3 dir) {
     return transpose(mat4(1, 0, 0, dir.x,
                           0, 1, 0, dir.y,

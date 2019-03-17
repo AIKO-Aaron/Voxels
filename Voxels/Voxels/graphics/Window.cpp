@@ -49,6 +49,7 @@ void graphics::Window::run() {
             if(e.type == SDL_WINDOWEVENT) {
                 if(e.window.event == SDL_WINDOWEVENT_CLOSE) running = false;
             } else if(e.type == SDL_QUIT) running = false;
+			else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) running = false;
 
 			for (eventFunc dis : eventDispatchers) dis(e);
         }

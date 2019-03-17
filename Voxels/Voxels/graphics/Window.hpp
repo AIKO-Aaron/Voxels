@@ -26,6 +26,7 @@
 #include <time.h>
 #include <chrono>
 #include <thread>
+#include <string>
 
 #include "config/StaticConfig.hpp"
 

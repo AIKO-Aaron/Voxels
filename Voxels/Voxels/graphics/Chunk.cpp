@@ -15,7 +15,7 @@ Chunk::Chunk(int x, int y) : xCord(x), yCord(y){
 }
 
 void Chunk::render() {
-    for (int i = 0; i < voxels.size(); i++) {
+    for (size_t i = 0; i < voxels.size(); i++) {
         voxels[i]->render();
     }
 }

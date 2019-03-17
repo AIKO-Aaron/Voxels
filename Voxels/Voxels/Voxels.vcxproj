@@ -147,11 +147,25 @@
     <ClInclude Include="glew\GL\glew.h" />
     <ClInclude Include="glew\GL\glxew.h" />
     <ClInclude Include="glew\GL\wglew.h" />
+    <ClInclude Include="graphics\Chunk.hpp" />
+    <ClInclude Include="graphics\Entity\Entity.hpp" />
+    <ClInclude Include="graphics\objects\Material.hpp" />
+    <ClInclude Include="graphics\objects\Object.hpp" />
+    <ClInclude Include="graphics\objects\Triangle.hpp" />
+    <ClInclude Include="graphics\objects\Voxel.hpp" />
     <ClInclude Include="graphics\Shader.hpp" />
+    <ClInclude Include="graphics\Texture.hpp" />
     <ClInclude Include="graphics\Window.hpp" />
     <ClInclude Include="math\Math.hpp" />
     <ClInclude Include="math\Matrix.hpp" />
+    <ClInclude Include="math\Perlin.hpp" />
+    <ClInclude Include="math\Physics.hpp" />
+    <ClInclude Include="math\physics\PhysicsElement.hpp" />
+    <ClInclude Include="math\physics\PhysicsEnvironment.hpp" />
+    <ClInclude Include="math\physics\PhysicUtil.hpp" />
     <ClInclude Include="math\Vector.hpp" />
+    <ClInclude Include="PlaygroundAaron.hpp" />
+    <ClInclude Include="PlaygroundKeanu.hpp" />
     <ClInclude Include="util\FileUtil.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +175,20 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
+    <ClCompile Include="graphics\Chunk.cpp" />
+    <ClCompile Include="graphics\Entity\Entity.cpp" />
+    <ClCompile Include="graphics\objects\Material.cpp" />
+    <ClCompile Include="graphics\objects\Object.cpp" />
+    <ClCompile Include="graphics\objects\Triangle.cpp" />
+    <ClCompile Include="graphics\objects\Voxel.cpp" />
     <ClCompile Include="graphics\Shader.cpp" />
+    <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="graphics\Window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\Perlin.cpp" />
+    <ClCompile Include="math\Physics.cpp" />
+    <ClCompile Include="math\physics\PhysicsElement.cpp" />
+    <ClCompile Include="math\physics\PhysicsEnvironment.cpp" />
     <ClCompile Include="util\FileUtil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

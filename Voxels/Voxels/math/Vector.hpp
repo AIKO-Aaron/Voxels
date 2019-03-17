@@ -43,11 +43,17 @@ namespace math {
         inline Vector<D> operator *=(float scalar) { for(int i = 0; i < D; i++) values[i] *= scalar; return *this; }
         inline Vector<D> operator /=(float scalar) { for(int i = 0; i < D; i++) values[i] /= scalar; return *this; }
 
+		// Elementwise operators
+		inline Vector<D> mult(Vector<D> other) { Vector<D> result; for (int i = 0; i < D; i++) result[i] = values[i] * other[i]; return result; }
+		inline Vector<D> div(Vector<D> other) { Vector<D> result; for (int i = 0; i < D; i++) result[i] = values[i] / other[i]; return result; }
+
         inline Vector<D> operator +(float vec) { Vector<D> result; for(int i = 0; i < D; i++) result[i] = values[i] + vec; return result; }
         inline Vector<D> operator -(float vec) { Vector<D> result; for(int i = 0; i < D; i++) result[i] = values[i] - vec; return result; }
         inline Vector<D> operator +=(float vec) { for(int i = 0; i < D; i++) values[i] += vec; return *this; }
         inline Vector<D> operator -=(float vec) { for(int i = 0; i < D; i++) values[i] -= vec; return *this; }
             
+		inline Vector<D> copy() { return Vector<D>(values); } // Copy the vector and return it
+
         inline void normalize() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; operator/=(1.0f / sqrt(len)); }
         inline float len() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; return sqrt(len); }
         inline float lensq() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; return len; }

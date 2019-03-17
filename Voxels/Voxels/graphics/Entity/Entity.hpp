@@ -16,27 +16,29 @@
 
 #define GRAVITY 0.002
 
-enum entityType{
+enum entityType {
     Player = 0
 };
+
 namespace graphics {
     namespace entities {
-        typedef struct{
+
+        typedef struct {
             float x, y, z;
-            entityType entityType;
-            std::vector<::graphics::objects::Voxel*> voxels;
-        }entityData;
+            entityType type;
+            std::vector<objects::Voxel*> voxels;
+        } entityData;
         
         class Entity {
         private:
             
         public:
-            entityData entityData;
+            entityData data;
             Shader *shader;
 
             
-            Entity(Shader *shader, float x, float y, float z, enum::entityType e);
-            void init(float x, float y, float z, enum::entityType e);
+            Entity(Shader *shader, float x, float y, float z, entityType e);
+            void init(float x, float y, float z, entityType e);
             void render();
             void update();
             void move(physics::vec3 dxyz);
