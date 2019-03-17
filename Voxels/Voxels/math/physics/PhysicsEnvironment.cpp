@@ -20,8 +20,8 @@ void Env::applyForces() {
 				vec3 v1 = HIT_v1(elements[j]->mass, e->mass, elements[j]->velocity, e->velocity);
 				vec3 v2 = HIT_v2(elements[j]->mass, e->mass, elements[j]->velocity, e->velocity);
 
-				e->velocity = v1 * -1;
-				elements[j]->velocity = v2 * -1;
+				e->velocity = v1.mult(createVec(1, -1, 1));
+				elements[j]->velocity = v2.mult(createVec(1, -1, 1));
 
 				continue;
 			}
