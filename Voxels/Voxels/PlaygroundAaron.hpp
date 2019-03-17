@@ -20,12 +20,22 @@
 
 #define TEST_FLOOR_SIZE 5
 
+physics::Env env;
 float *floorHeights = new float[TEST_FLOOR_SIZE * TEST_FLOOR_SIZE];
 std::vector<graphics::objects::Triangle*> floorTriangles;
+std::vector<graphics::objects::Voxel*> physObj;
 graphics::objects::Voxel *player;
 graphics::Shader *shader;
 physics::vec3 playerPos = physics::createVec(0, 0, 0), playerAngle;
 float currentTime = 0;
+
+physics::vec3 gravity(physics::Element *element) {
+	if (element->position[1] > 0) {
+		element->position[1] = 0;
+		element->velocity[1] = 0;
+	}
+	return physics::createVec(0, 0.001f, 0);
+}
 
 static void initPlayground() {
     shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
@@ -36,12 +46,18 @@ static void initPlayground() {
 #else
     math::Perlin perlin = math::Perlin((int) time(NULL));
 #endif
+
+	env.addForceFunc(gravity);
     
     graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
     graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
     for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = 5.0f * (float) perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f);
     
 	player = new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1); // Centered around 0,0,0
+	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
+	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
+	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
+	for (graphics::objects::Voxel *v : physObj) env.addElement(v);
 
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
         for(int j = 0; j < TEST_FLOOR_SIZE - 1; j++) {
@@ -61,13 +77,16 @@ static void initPlayground() {
 void render(graphics::Window *window) {
     glClearColor(0, 0, 0, 1); // Clear background to black
     
-    for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
-	player->render();
-    
+	env.applyForces();
+
+    //for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
+	//player->render();
+	for (graphics::objects::Voxel *v : physObj) v->render();
+
 	physics::vec3 viewdir = physics::createVec(-cos(playerAngle[1]) * cos(playerAngle[0]), sin(playerAngle[0]), sin(playerAngle[1]) * cos(playerAngle[0]));
 
     shader->uniformf("time", currentTime);
-    shader->uniformf("cameraPos", playerPos - viewdir * 3);
+    shader->uniformf("cameraPos", playerPos - viewdir * 0);
     shader->uniformf("playerView", playerAngle);
     
     currentTime += 0.01f;

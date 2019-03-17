@@ -23,6 +23,8 @@ namespace graphics {
     namespace objects {
         class Voxel : public Object {
         private:            
+			physics::vec3 size;
+
         public:
             //type and color
             voxelType voxelType;
@@ -30,6 +32,8 @@ namespace graphics {
             Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m);
             
             void init(float x, float y, float z, float w, float h, float d, Material m);
+
+			std::vector<physics::hitboxData> getHitbox() override;
         };
         
     }

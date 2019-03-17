@@ -23,7 +23,8 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
 	float h2 = h / 2.0f;
 	float d2 = d / 2.0f;
 
-	data.position = physics::createVec(x, y, z);
+	size = physics::createVec(w, h, d);
+	position = physics::createVec(x, y, z);
 
 	verticies[0]  = { -w2, -h2, -d2, 0, 0 };
 	verticies[1]  = {  w2, -h2, -d2, 1, 0 };
@@ -86,4 +87,12 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 36, indicies, GL_STATIC_DRAW);
+}
+
+std::vector<physics::hitboxData> Voxel::getHitbox() {
+	std::vector<physics::hitboxData> hitbox;
+
+	hitbox.push_back({ position[0], position[1], position[2], size[0], size[1], size[2] });
+
+	return hitbox;
 }

@@ -18,7 +18,7 @@ namespace physics {
 		inline void addForceFunc(forceFunc func) { forces.push_back(func); }
 
 		void applyForces();
-
+		bool intersect(Element *e1, Element *e2);
 	};
 
 }

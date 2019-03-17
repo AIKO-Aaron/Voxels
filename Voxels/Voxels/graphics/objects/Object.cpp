@@ -19,7 +19,7 @@ Object::Object(graphics::Shader *sh, int vc) : shader(sh), vertexCount(vc) {
 }
 
 void Object::render() {
-	shader->uniformf("vertPos", data.position);
+	shader->uniformf("vertPos", position);
 	shader->uniformf("vertRot", data.rotation);
 	material.use(shader);
 	glBindVertexArray(vaoID);

@@ -21,6 +21,7 @@
 
 #include "Material.hpp"
 #include "../Shader.hpp"
+#include "../../math/Physics.hpp"
 
 namespace graphics {
     namespace objects {
@@ -31,12 +32,11 @@ namespace graphics {
         } vertexData;
         
         typedef struct{
-			physics::vec3 position;
 			physics::vec3 size;
 			physics::vec3 rotation;
        } objectData;
         
-        class Object {
+        class Object : public physics::Element {
 		private:
 			int vertexCount;
 
@@ -50,7 +50,7 @@ namespace graphics {
             Object(Shader *shader, int vertexCount);
             void render();
             
-			inline void move(physics::vec3 dxyz) { data.position += dxyz; }
+			inline void move(physics::vec3 dxyz) { position += dxyz; }
 			inline void rotate(physics::vec3 dxyz) { data.rotation += dxyz; }
 
 			inline objectData getData() { return data; }

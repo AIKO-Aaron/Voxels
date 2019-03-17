@@ -18,8 +18,9 @@ namespace graphics {
         private:
             
         public:
-            
             Triangle(Shader *shader, physics::vec3 p1, physics::vec3 p2, physics::vec3 p3, Material m);
+
+			inline std::vector<physics::hitboxData> getHitbox() override { return std::vector<physics::hitboxData>(); } // No hitbox (triangle is only 2D)
         };
         
     }
