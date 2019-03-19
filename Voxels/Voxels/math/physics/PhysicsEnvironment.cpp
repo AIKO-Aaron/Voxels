@@ -17,7 +17,7 @@ vec3 calculateHit(float m1, float m2, vec3 v1, vec3 v2, vec3 intersectionPoint) 
     vec3 dir = v1 - normal * normal.dot(v1) * 2.0f;
     
     float len = out.len();
-    return dir * len * -1;
+    return out * -1; //dir * len * -1;
 }
 
 void Env::applyForces() {
