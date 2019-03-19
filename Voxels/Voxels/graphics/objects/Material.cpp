@@ -19,11 +19,19 @@ Material::Material(graphics::Texture *tex) : texture(tex) {
 }
 
 void Material::use(graphics::Shader *shader) {
-    shader->uniformi("isTextured", isTextured ? 1 : 0);
+    shader->uniformi("mat.isTextured", isTextured ? 1 : 0);
+    shader->uniformf("mat.shininess", shininess);
     if(isTextured) {
-        shader->uniformf("tex", 0);
+        shader->uniformf("mat.tex", 0);
         texture->bind(GL_TEXTURE0);
+        
+        shader->uniformf("mat.ambientTex", 1);
+        ambientTexture->bind(GL_TEXTURE1);
+        shader->uniformf("mat.diffuseTex", 2);
+        diffuseTexture->bind(GL_TEXTURE2);
+        shader->uniformf("mat.specularTex", 3);
+        specularTexture->bind(GL_TEXTURE3);
     } else {
-        shader->uniformf("color", color);
+        shader->uniformf("mat.color", color);
     }
 }

@@ -27,10 +27,15 @@ namespace graphics {
     namespace objects {
         
         typedef struct {
-            float x, y, z;
-            float u, v;
+            float x, y, z; // Position
+            float u, v; // UV in the texture
+            float nx, ny, nz; // Normal vector
         } vertexData;
         
+#define POS_OFFSET ((void*) (sizeof(float) * 0))
+#define UV_OFFSET ((void*) (sizeof(float) * 3))
+#define NORMAL_OFFSET ((void*) (sizeof(float) * 5))
+
         typedef struct{
 			physics::vec3 size;
 			physics::vec3 rotation;

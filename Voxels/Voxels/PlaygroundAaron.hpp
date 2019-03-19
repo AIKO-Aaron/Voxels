@@ -41,6 +41,16 @@ static void initPlayground() {
     shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
+    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1, 0.5, 0));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.5f, 0.5f, 0.5f));
+    shader->uniformf("lights[0].diffuseColor", physics::createVec(0.1f, 0.1f, 0.1f));
+    shader->uniformf("lights[0].specularColor", physics::createVec(1.0f, 1.0f, 1.0f));
+
+    shader->uniformf("lights[1].position", physics::createVec(1, 4, -1, 1));
+    shader->uniformf("lights[1].ambientColor", physics::createVec(0.0f, 0.0f, 0.1f));
+    shader->uniformf("lights[1].diffuseColor", physics::createVec(0.0f, 0.0f, 0.1f));
+    shader->uniformf("lights[1].specularColor", physics::createVec(0.0f, 0.0f, 1.0f));
+    
 #ifdef DEBUG_RANDOM
     math::Perlin perlin = math::Perlin(0x1234); // Contstant seed
 #else
@@ -56,9 +66,9 @@ static void initPlayground() {
 	player = new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1); // Centered around 0,0,0
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
-	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
-    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -10, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
-	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -20, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
+	 physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
+    //physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -10, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
+	//physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -20, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
     // physObj[2]->mass *= 40;
     for (graphics::objects::Voxel *v : physObj) env.addElement(v);
 

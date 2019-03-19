@@ -21,6 +21,7 @@ namespace graphics {
             bool isTextured = false;
             physics::vec4 color;
             graphics::Texture *texture = nullptr;
+            float shininess = 32.0f;
 
             graphics::Texture *ambientTexture = nullptr;
             graphics::Texture *diffuseTexture = nullptr;
