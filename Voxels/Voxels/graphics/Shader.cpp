@@ -102,10 +102,10 @@ static util::filedata loadShaderRecursive(const char *filePath, int depth = 9) {
                     
                     // data + start until j+1
                     uint64_t newsize = fd.size - s + start + loadedFile.size;
-                    char *newFile = (char*) malloc(newsize + 1);
+                    char *newFile = (char*) malloc((size_t) newsize + 1);
                     memcpy(newFile, fd.data, start);
-                    memcpy(newFile + start, loadedFile.data, loadedFile.size);
-                    memcpy(newFile + start + loadedFile.size, fd.data + start + j + 1, fd.size - s);
+                    memcpy(newFile + start, loadedFile.data, (size_t) loadedFile.size);
+                    memcpy(newFile + start + loadedFile.size, fd.data + start + j + 1, (size_t) fd.size - s);
                     newFile[newsize] = 0;
                     
                     free(loadedFile.data); // Free newly loaded file

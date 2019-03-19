@@ -10,15 +10,15 @@
 
 using namespace graphics::objects;
 
-Material::Material(physics::vec4 color) : color(color) {
+Material::Material(physics::vec4 col) : color(col) {
     isTextured = false;
 }
 
-Material::Material(Texture *texture) : texture(texture) {
+Material::Material(graphics::Texture *tex) : texture(tex) {
     isTextured = true;
 }
 
-void Material::use(Shader *shader) {
+void Material::use(graphics::Shader *shader) {
     shader->uniformi("isTextured", isTextured ? 1 : 0);
     if(isTextured) {
         shader->uniformf("tex", 0);

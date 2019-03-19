@@ -10,54 +10,53 @@
 
 using namespace graphics::objects;
 
-Voxel::Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader), voxelType(voxelType) {
+Voxel::Voxel(graphics::Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m) : Object(shader, 36), voxelType(voxelType) {
     init(x, y, z, w, h, d, m);
 }
 
-void Voxel::init(float x, float y, float z, float w, float h, float d, Material mat) {
-    objectData.position = physics::createVec(x, y, z);
-    objectData.dimensions = physics::createVec(w, h, d);
-    
-    GLuint vboID;
-    glGenBuffers(1, &vboID);
-    privateVboID = vboID;
-    
-    GLuint iboID;
-    glGenBuffers(1, &iboID);
-    
+
+void Voxel::init(float x, float y, float z, float w, float h, float d, Material mat) {    
+
     material = mat;
     
     vertexData *verticies = new vertexData[24];
     
-    verticies[0] = { x, y, z, 0, 0 };
-    verticies[1] = { x + w, y, z, 1, 0 };
-    verticies[2] = { x + w, y + h, z, 1, 1 };
-    verticies[3] = { x, y + h, z, 0, 1 };
-    
-    verticies[4] = { x, y, z + d, 0, 0 };
-    verticies[5] = { x, y + h, z + d, 0, 1 };
-    verticies[6] = { x + w, y + h, z + d, 1, 1 };
-    verticies[7] = { x + w, y, z + d, 1, 0 };
-    
-    verticies[8]  = { x, y, z, 0, 0 };
-    verticies[9]  = { x, y + h, z, 0, 1 };
-    verticies[10] = { x, y + h, z + d, 1, 1 };
-    verticies[11] = { x, y, z + d, 1, 0 };
-    
-    verticies[12] = { x + w, y, z, 0, 0 };
-    verticies[13] = { x + w, y, z + d, 0, 1 };
-    verticies[14] = { x + w, y + h, z + d, 1, 1 };
-    verticies[15] = { x + w, y + h, z, 1, 0 };
-    
-    verticies[16]  = { x, y + h, z, 0, 0 };
-    verticies[17]  = { x + w, y + h, z, 0, 1 };
-    verticies[18] = { x + w, y + h, z + d, 1, 1 };
-    verticies[19] = { x, y + h, z + d, 1, 0 };
-    
-    verticies[20] = { x, y, z, 0, 0 };
-    verticies[21] = { x, y, z + d, 0, 1 };
-    verticies[22] = { x + w, y, z + d, 1, 1 };
-    verticies[23] = { x + w, y, z, 1, 0 };
+	float w2 = w / 2.0f;
+	float h2 = h / 2.0f;
+	float d2 = d / 2.0f;
+
+	size = physics::createVec(w, h, d);
+	position = physics::createVec(x, y, z);
+
+	verticies[0]  = { -w2, -h2, -d2, 0, 0 };
+	verticies[1]  = {  w2, -h2, -d2, 1, 0 };
+	verticies[2]  = {  w2,  h2, -d2, 1, 1 };
+	verticies[3]  = { -w2,  h2, -d2, 0, 1 };
+
+	verticies[4]  = { -w2, -h2,  d2, 0, 0 };
+	verticies[5]  = { -w2,  h2,  d2, 0, 1 };
+	verticies[6]  = {  w2,  h2,  d2, 1, 1 };
+	verticies[7]  = {  w2, -h2,  d2, 1, 0 };
+
+	verticies[8]  = { -w2, -h2, -d2, 0, 0 };
+	verticies[9]  = { -w2,  h2, -d2, 0, 1 };
+	verticies[10] = { -w2,  h2,  d2, 1, 1 };
+	verticies[11] = { -w2, -h2,  d2, 1, 0 };
+
+	verticies[12] = {  w2, -h2, -d2, 0, 0 };
+	verticies[13] = {  w2, -h2,  d2, 0, 1 };
+	verticies[14] = {  w2,  h2,  d2, 1, 1 };
+	verticies[15] = {  w2,  h2, -d2, 1, 0 };
+
+	verticies[16] = { -w2,  h2, -d2, 0, 0 };
+	verticies[17] = {  w2,  h2, -d2, 0, 1 };
+	verticies[18] = {  w2,  h2,  d2, 1, 1 };
+	verticies[19] = { -w2,  h2,  d2, 1, 0 };
+
+	verticies[20] = { -w2, -h2, -d2, 0, 0 };
+	verticies[21] = { -w2, -h2,  d2, 0, 1 };
+	verticies[22] = {  w2, -h2,  d2, 1, 1 };
+	verticies[23] = {  w2, -h2, -d2, 1, 0 };
     
     GLubyte *indicies = new GLubyte[36] {
         0, 1, 2,
@@ -92,28 +91,18 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 36, indicies, GL_STATIC_DRAW);
 }
 
-void Voxel::render() {
-    /*
-    uniform vec3 globalPosition;
-    uniform vec3 tilt;
-    uniform vec3 anchorPoint;
-     */
-
-    material.use(shader);
-    shader->uniformf("globalPosition", objectData.position);
-    shader->uniformf("tilt", physics::createVec(0, 0, 0));
-    shader->uniformf("anchorPoint", physics::createVec(0, 0, 0));
-    
-    glBindVertexArray(vaoID);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0);
-}
-
 void Voxel::move(physics::vec3 dxyz){
-    objectData.position += dxyz;
-    shader->uniformf("globalPosition", objectData.position);
+    position += dxyz;
+    shader->uniformf("globalPosition", position);
     
 }
 
-void Voxel::update(){
+    
+std::vector<physics::hitboxData> Voxel::getHitbox() {
+	std::vector<physics::hitboxData> hitbox;
 
+	hitbox.push_back({ position[0], position[1], position[2], size[0], size[1], size[2] });
+
+	return hitbox;
 }
+
