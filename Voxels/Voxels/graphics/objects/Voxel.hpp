@@ -32,6 +32,7 @@ namespace graphics {
             Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float z, float w, float h, float d, Material m);
             
             void init(float x, float y, float z, float w, float h, float d, Material m);
+            void move(physics::vec3 dxyz);
 
 			std::vector<physics::hitboxData> getHitbox() override;
         };

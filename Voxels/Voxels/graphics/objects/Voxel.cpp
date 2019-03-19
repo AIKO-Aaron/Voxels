@@ -14,7 +14,9 @@ Voxel::Voxel(graphics::Shader *shader, enum::voxelType voxelType, float x, float
     init(x, y, z, w, h, d, m);
 }
 
+
 void Voxel::init(float x, float y, float z, float w, float h, float d, Material mat) {    
+
     material = mat;
     
     vertexData *verticies = new vertexData[24];
@@ -89,6 +91,13 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 36, indicies, GL_STATIC_DRAW);
 }
 
+void Voxel::move(physics::vec3 dxyz){
+    position += dxyz;
+    shader->uniformf("globalPosition", position);
+    
+}
+
+    
 std::vector<physics::hitboxData> Voxel::getHitbox() {
 	std::vector<physics::hitboxData> hitbox;
 
@@ -96,3 +105,4 @@ std::vector<physics::hitboxData> Voxel::getHitbox() {
 
 	return hitbox;
 }
+

@@ -4,13 +4,16 @@
 
 layout (location = 0) in vec3 vertPosition;
 layout (location = 1) in vec2 uvPosition;
-layout (location = 2) in vec3 globalPosition;
-layout (location = 3) in vec3 tilt;
-layout (location = 4) in vec3 anchorPoint;
 
 uniform float time;
+
+uniform vec3 globalPosition;
+uniform vec3 tilt;
+uniform vec3 anchorPoint;
+
 uniform vec3 cameraPos;
 uniform vec3 playerView;
+
 
 out vec4 pos;
 out vec2 uv;
