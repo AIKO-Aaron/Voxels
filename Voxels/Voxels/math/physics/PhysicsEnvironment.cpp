@@ -1,35 +1,64 @@
 #include "PhysicsEnvironment.hpp"
 
 #define COMPARE(a, b) (d1.a + d1.b >= d2.a && d1.a <= d2.a + d2.b)
-#define HIT_v1(m1, m2, v1, v2) ((v1) * (m1) + (v2) * (m2) + ((v2) - (v1)) * (m2)) / ((m1) + (m2))
-#define HIT_v2(m1, m2, v1, v2) ((v1) * (m1) + (v2) * (m2) - ((v2) - (v1)) * (m1)) / ((m1) + (m2))
+#define SPRINGINESS 1.0
 
 using namespace physics;
 
+vec3 calculateHit(float m1, float m2, vec3 v1, vec3 v2, vec3 intersectionPoint) {
+    vec3 out = (v1 * m1 - (v1 - v2 * 2.0f) * m2) / (m1 + m2);
+    
+    printf("Length of output vector: %f\n", out.len());
+    
+    vec3 e1 = v1.copy().normalize() + v2.copy().normalize();
+    vec3 e2 = e1 + intersectionPoint;
+    
+    vec3 normal = math::cross(intersectionPoint, e2);
+    vec3 dir = v1 - normal * normal.dot(v1) * 2.0f;
+    
+    float len = out.len();
+    return dir * len * -1;
+}
+
 void Env::applyForces() {
+    for (int i = 0; i < (int)elements.size(); i++) {
+        Element *e = elements[i];
+        for (int j = i + 1; j < (int)elements.size(); j++) {
+            if (intersect(e, elements[j])) {
+                vec3 v1 = calculateHit(elements[j]->mass, e->mass, elements[j]->velocity, e->velocity, e->position);
+                vec3 v2 = calculateHit(e->mass, elements[j]->mass, e->velocity, elements[j]->velocity, e->position);
+                
+                /**printf("\n");
+                printf("%f\n", ((elements[j]->velocity) * (elements[j]->mass) + (e->velocity) * (e->mass))[1]);
+                printf("%f\n", ((elements[j]->velocity - e->velocity) * (e->mass))[1]);
+                printf("%f\n", ((elements[j]->velocity - e->velocity) * (elements[j]->mass))[1]);
+                printf("%f\n", elements[j]->mass + e->mass);*/
+
+                e->velocity = v1 * SPRINGINESS;
+                elements[j]->velocity = v2 * SPRINGINESS;
+                
+                if(e->velocity.len() < 0.001) printf("Length of new velocity: %f\n", e->velocity.len());
+                
+                if((e->velocity - elements[j]->velocity).len() < 0.001) printf("Difference is minimal!? %f\n", (e->velocity - elements[j]->velocity).len());
+                
+                int steps = 0;
+                while(intersect(e, elements[j]) && steps++ < 100) {
+                    e->position += e->velocity / 10.0f;
+                    elements[j]->position += elements[j]->velocity / 10.0f;
+                }
+                    
+                break;
+            }
+        }
+    }
+    
 	for (Element *e : elements) {
 		vec3 curForce;
 		for (forceFunc f : forces) curForce += f(e); // Add the force to the total
 		vec3 acceleration = curForce / e->mass; // F = m*a --> a = F/m
 		e->velocity += acceleration; // Update velocity
+        e->position += e->velocity;
 	}
-	for (int i = 0; i < (int)elements.size(); i++) {
-		Element *e = elements[i];
-		for (int j = i + 1; j < (int)elements.size(); j++) {
-			if (intersect(e, elements[j])) {
-				vec3 v1 = HIT_v1(elements[j]->mass, e->mass, elements[j]->velocity, e->velocity);
-				vec3 v2 = HIT_v2(elements[j]->mass, e->mass, elements[j]->velocity, e->velocity);
-
-				e->velocity = v1.mult(createVec(1, -1, 1));
-				elements[j]->velocity = v2.mult(createVec(1, -1, 1));
-
-				continue;
-			}
-		}
-	}
-
-	for (Element *e : elements) e->position += e->velocity; // Update position
-
 }
 
 bool Env::intersect(Element *e1, Element *e2) {

@@ -16,6 +16,8 @@
 		9313BA982237CD0A000AB321 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA972237CD0A000AB321 /* Material.cpp */; };
 		9313BA9B22397731000AB321 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA9922397731000AB321 /* Triangle.cpp */; };
 		9313BA9E223978BC000AB321 /* Perlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA9C223978BC000AB321 /* Perlin.cpp */; };
+		93446D49223E495E00EA61C7 /* PhysicsEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93446D45223E495E00EA61C7 /* PhysicsEnvironment.cpp */; };
+		93446D4A223E495E00EA61C7 /* PhysicsElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93446D47223E495E00EA61C7 /* PhysicsElement.cpp */; };
 		938E1A242232D6060044BB17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A232232D6060044BB17 /* main.cpp */; };
 		938E1A27223506530044BB17 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A25223506530044BB17 /* Physics.cpp */; };
 		938E1A2B223662110044BB17 /* Voxel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 938E1A29223662110044BB17 /* Voxel.cpp */; };
@@ -79,6 +81,11 @@
 		9313BA9D223978BC000AB321 /* Perlin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Perlin.hpp; sourceTree = "<group>"; };
 		9313BA9F22397B0A000AB321 /* PlaygroundAaron.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlaygroundAaron.hpp; sourceTree = "<group>"; };
 		9313BAA022397B2E000AB321 /* PlaygroundKeanu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlaygroundKeanu.hpp; sourceTree = "<group>"; };
+		93446D44223E495E00EA61C7 /* PhysicsElement.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhysicsElement.hpp; sourceTree = "<group>"; };
+		93446D45223E495E00EA61C7 /* PhysicsEnvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsEnvironment.cpp; sourceTree = "<group>"; };
+		93446D46223E495E00EA61C7 /* PhysicUtil.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhysicUtil.hpp; sourceTree = "<group>"; };
+		93446D47223E495E00EA61C7 /* PhysicsElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsElement.cpp; sourceTree = "<group>"; };
+		93446D48223E495E00EA61C7 /* PhysicsEnvironment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhysicsEnvironment.hpp; sourceTree = "<group>"; };
 		938E1A202232CE4B0044BB17 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		938E1A212232CE4B0044BB17 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
 		938E1A222232CEAE0044BB17 /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
@@ -163,7 +170,8 @@
 		930FD974223243C6002E553F /* math */ = {
 			isa = PBXGroup;
 			children = (
-				4D4CB2C92240F5CA00E99D25 /* physics */,
+
+				93446D43223E495E00EA61C7 /* physics */,
 				9313BA9C223978BC000AB321 /* Perlin.cpp */,
 				9313BA9D223978BC000AB321 /* Perlin.hpp */,
 				938E1A202232CE4B0044BB17 /* Matrix.hpp */,
@@ -198,6 +206,18 @@
 				930FD983223251E2002E553F /* StaticConfig.hpp */,
 			);
 			path = config;
+			sourceTree = "<group>";
+		};
+		93446D43223E495E00EA61C7 /* physics */ = {
+			isa = PBXGroup;
+			children = (
+				93446D44223E495E00EA61C7 /* PhysicsElement.hpp */,
+				93446D47223E495E00EA61C7 /* PhysicsElement.cpp */,
+				93446D48223E495E00EA61C7 /* PhysicsEnvironment.hpp */,
+				93446D45223E495E00EA61C7 /* PhysicsEnvironment.cpp */,
+				93446D46223E495E00EA61C7 /* PhysicUtil.hpp */,
+			);
+			path = physics;
 			sourceTree = "<group>";
 		};
 		938E1A282236603A0044BB17 /* objects */ = {
@@ -329,8 +349,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93446D4A223E495E00EA61C7 /* PhysicsElement.cpp in Sources */,
 				93D5469622315C1800B66D7F /* glew.c in Sources */,
 				4D06550B2236A7660039F342 /* Chunk.cpp in Sources */,
+				93446D49223E495E00EA61C7 /* PhysicsEnvironment.cpp in Sources */,
 				4D06550E223A5A8C0039F342 /* Entity.cpp in Sources */,
 				930FD977223243D1002E553F /* Window.cpp in Sources */,
 				9313BA9E223978BC000AB321 /* Perlin.cpp in Sources */,

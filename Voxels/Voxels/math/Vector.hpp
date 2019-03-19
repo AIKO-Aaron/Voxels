@@ -54,7 +54,7 @@ namespace math {
             
 		inline Vector<D> copy() { return Vector<D>(values); } // Copy the vector and return it
 
-        inline void normalize() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; operator/=(1.0f / sqrt(len)); }
+        inline Vector<D> normalize() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; operator/=(1.0f / sqrt(len)); return *this; }
         inline float len() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; return sqrt(len); }
         inline float lensq() { float len = 0; for(int i = 0; i < D; i++) len += values[i] * values[i]; return len; }
     };
