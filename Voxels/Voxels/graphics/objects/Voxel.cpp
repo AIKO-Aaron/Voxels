@@ -15,12 +15,8 @@ Voxel::Voxel(Shader *shader, enum::voxelType voxelType, float x, float y, float 
 }
 
 void Voxel::init(float x, float y, float z, float w, float h, float d, Material mat) {
-    objectData.x = x;
-    objectData.y = y;
-    objectData.z = z;
-    objectData.w = w;
-    objectData.h = h;
-    objectData.d = d;
+    objectData.position = physics::createVec(x, y, z);
+    objectData.dimensions = physics::createVec(w, h, d);
     
     GLuint vboID;
     glGenBuffers(1, &vboID);
@@ -97,58 +93,27 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
 }
 
 void Voxel::render() {
+    /*
+    uniform vec3 globalPosition;
+    uniform vec3 tilt;
+    uniform vec3 anchorPoint;
+     */
+
     material.use(shader);
+    shader->uniformf("globalPosition", objectData.position);
+    shader->uniformf("tilt", physics::createVec(0, 0, 0));
+    shader->uniformf("anchorPoint", physics::createVec(0, 0, 0));
+    
     glBindVertexArray(vaoID);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0);
 }
 
 void Voxel::move(physics::vec3 dxyz){
-    objectData.x += dxyz[0];
-    objectData.y += dxyz[1];
-    objectData.z += dxyz[2];
-    update();
+    objectData.position += dxyz;
+    shader->uniformf("globalPosition", objectData.position);
     
 }
 
 void Voxel::update(){
-    
-    vertexData *verticies = new vertexData[24];
-    
-    verticies[0] = { objectData.x, objectData.y, objectData.z, 0, 0 };
-    verticies[1] = { objectData.x + objectData.w, objectData.y, objectData.z, 1, 0 };
-    verticies[2] = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z, 1, 1 };
-    verticies[3] = { objectData.x, objectData.y + objectData.h, objectData.z, 0, 1 };
-    
-    verticies[4] = { objectData.x, objectData.y, objectData.z + objectData.d, 0, 0 };
-    verticies[5] = { objectData.x, objectData.y + objectData.h, objectData.z + objectData.d, 0, 1 };
-    verticies[6] = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z + objectData.d, 1, 1 };
-    verticies[7] = { objectData.x + objectData.w, objectData.y, objectData.z + objectData.d, 1, 0 };
-    
-    verticies[8]  = { objectData.x, objectData.y, objectData.z, 0, 0 };
-    verticies[9]  = { objectData.x, objectData.y + objectData.h, objectData.z, 0, 1 };
-    verticies[10] = { objectData.x, objectData.y + objectData.h, objectData.z + objectData.d, 1, 1 };
-    verticies[11] = { objectData.x, objectData.y, objectData.z + objectData.d, 1, 0 };
-    
-    verticies[12] = { objectData.x + objectData.w, objectData.y, objectData.z, 0, 0 };
-    verticies[13] = { objectData.x + objectData.w, objectData.y, objectData.z + objectData.d, 0, 1 };
-    verticies[14] = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z + objectData.d, 1, 1 };
-    verticies[15] = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z, 1, 0 };
-    
-    verticies[16]  = { objectData.x, objectData.y + objectData.h, objectData.z, 0, 0 };
-    verticies[17]  = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z, 0, 1 };
-    verticies[18] = { objectData.x + objectData.w, objectData.y + objectData.h, objectData.z + objectData.d, 1, 1 };
-    verticies[19] = { objectData.x, objectData.y + objectData.h, objectData.z + objectData.d, 1, 0 };
-    
-    verticies[20] = { objectData.x, objectData.y, objectData.z, 0, 0 };
-    verticies[21] = { objectData.x, objectData.y, objectData.z + objectData.d, 0, 1 };
-    verticies[22] = { objectData.x + objectData.w, objectData.y, objectData.z + objectData.d, 1, 1 };
-    verticies[23] = { objectData.x + objectData.w, objectData.y, objectData.z, 1, 0 };
-    
-    
-    
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, privateVboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData) * 24, verticies, GL_STATIC_DRAW);
+
 }

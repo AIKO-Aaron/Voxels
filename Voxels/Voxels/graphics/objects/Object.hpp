@@ -31,7 +31,7 @@ namespace graphics {
         } vertexData;
         
         typedef struct{
-            float x, y, z, h, w, d;
+            physics::vec3 position, dimensions;
        }objectData;
         
         class Object {
