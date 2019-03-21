@@ -8,7 +8,7 @@ using namespace physics;
 vec3 calculateHit(float m1, float m2, vec3 v1, vec3 v2, vec3 intersectionPoint) {
     vec3 out = (v1 * m1 - (v1 - v2 * 2.0f) * m2) / (m1 + m2);
     
-    printf("Length of output vector: %f\n", out.len());
+    // printf("Length of output vector: %f\n", out.len());
     
     vec3 e1 = v1.copy().normalize() + v2.copy().normalize();
     vec3 e2 = e1 + intersectionPoint;

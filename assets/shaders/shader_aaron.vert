@@ -18,24 +18,25 @@ out vec3 viewPos;
 out vec4 pos;
 out vec2 uv;
 out vec4 normal;
+out mat4 view;
 
-vec4 applyTransformations(vec4 v) {
+mat4 createTransformationMatrix() {
     return perspective(PI / 2.0f, 0.1, 100) // We have a 3D perspective (Things further back are smaller)
             * rotate_camera(playerView) // Rotate the camera, so the player sees the right things
             * translate(cameraPos) // Move the world so the camera is moved to its position
             * translate(-vertPos) // Move vertex to its position
             * translate(anchorPos) // Translate back
             * rotate(-vertRot) // Rotate around 0,0,0
-            * translate(-anchorPos) // Translate anchorPos to 0,0,0
-            * v; // Initial position in world coords
+            * translate(-anchorPos); // Translate anchorPos to 0,0,0
 }
 
 void main() {
-    gl_Position = applyTransformations(vec4(vertPosition, 1));
+    view = createTransformationMatrix();
+    gl_Position = view * vec4(vertPosition, 1);
     
     // Give stuff to Fragment shader
-    normal = normalize(applyTransformations(vec4(vertNormal, 0))); // Direction (w = 0) --> Translations don't get applied
+    normal = normalize(view * vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
 	pos = gl_Position;
     uv = uvPosition;
-    viewPos = cameraPos;
+    viewPos = normalize(view * vec4(cameraPos, 0)).xyz;
 }

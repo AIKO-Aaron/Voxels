@@ -21,13 +21,14 @@ namespace graphics {
             bool isTextured = false;
             physics::vec4 color;
             graphics::Texture *texture = nullptr;
-            float shininess = 32.0f;
 
-            graphics::Texture *ambientTexture = nullptr;
-            graphics::Texture *diffuseTexture = nullptr;
-            graphics::Texture *specularTexture = nullptr;
+            graphics::Texture *ambientTexture = new graphics::Texture("assets/textures/cube/ambient.png");
+            graphics::Texture *diffuseTexture = new graphics::Texture("assets/textures/cube/diffuse.png");
+            graphics::Texture *specularTexture = new graphics::Texture("assets/textures/cube/specular.png");
             
         public:
+            float shininess = 32.0f;
+
             Material(physics::vec4 color);
             Material(Texture *texture);
             

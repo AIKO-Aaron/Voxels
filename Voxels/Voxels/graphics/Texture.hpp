@@ -29,7 +29,7 @@ namespace graphics {
     public:
         Texture(const char *path);
         
-        inline void bind(int location) { glActiveTexture(GL_TEXTURE0 + location); glBindTexture(GL_TEXTURE_2D, texID); }
+        inline void bind(int location) { glActiveTexture(location); glBindTexture(GL_TEXTURE_2D, texID); }
     };
 
 }

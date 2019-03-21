@@ -41,15 +41,28 @@ static void initPlayground() {
     shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
-    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1, 0.5, 0));
-    shader->uniformf("lights[0].ambientColor", physics::createVec(0.5f, 0.5f, 0.5f));
-    shader->uniformf("lights[0].diffuseColor", physics::createVec(0.1f, 0.1f, 0.1f));
+    // 2 --> 6
+    // 3 --> 6 * 4
+    // n --> 6 * (n - 1) * (n - 1)
+    
+    shader->uniformi("numLights", 1);
+    
+    // Directional light
+    shader->uniformf("lights[0].position", physics::createVec(0.0f, 1, 0.0, 0));
+    shader->uniformf("lights[0].attenuation", physics::createVec(1.0, 0.14f, 0.07f));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.2f, 0.2f, 0.2f));
+    shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(1.0f, 1.0f, 1.0f));
-
-    shader->uniformf("lights[1].position", physics::createVec(1, 4, -1, 1));
+    shader->uniformf("lights[0].brightness", 1.0f);
+    
+    
+    // Point light
+    /*shader->uniformf("lights[1].position", physics::createVec(1, 10, 1, 1));
+    shader->uniformf("lights[1].attenuation", physics::createVec(1.0, 0.14f, 0.07f));
     shader->uniformf("lights[1].ambientColor", physics::createVec(0.0f, 0.0f, 0.1f));
-    shader->uniformf("lights[1].diffuseColor", physics::createVec(0.0f, 0.0f, 0.1f));
+    shader->uniformf("lights[1].diffuseColor", physics::createVec(0.0f, 0.0f, 0.6f));
     shader->uniformf("lights[1].specularColor", physics::createVec(0.0f, 0.0f, 1.0f));
+    shader->uniformf("lights[1].brightness", 1.0f);*/
     
 #ifdef DEBUG_RANDOM
     math::Perlin perlin = math::Perlin(0x1234); // Contstant seed
@@ -63,18 +76,19 @@ static void initPlayground() {
     graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
     for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = 5.0f * (float) perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f);
     
-	player = new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1); // Centered around 0,0,0
+	player = new graphics::objects::Voxel(shader, BLANK, 0, -1, 0, 1, 1, 1, m1); // Centered around 0,0,0
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
-	 physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
     //physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -10, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
 	//physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -20, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 1, 1))));
     // physObj[2]->mass *= 40;
     for (graphics::objects::Voxel *v : physObj) env.addElement(v);
 
+    m2.shininess = 32.0f;
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
         for(int j = 0; j < TEST_FLOOR_SIZE - 1; j++) {
-            physics::vec3 p1 = physics::createVec((float) i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
+            physics::vec3 p1 = physics::createVec((float)i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p2 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p3 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1);
             floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m2));
@@ -92,8 +106,8 @@ void render(graphics::Window *window) {
     
 	env.applyForces();
 
-    //for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
-	//player->render();
+    for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
+	player->render();
 	for (graphics::objects::Voxel *v : physObj) v->render();
 
 	physics::vec3 viewdir = physics::createVec(-cos(playerAngle[1]) * cos(playerAngle[0]), sin(playerAngle[0]), sin(playerAngle[1]) * cos(playerAngle[0]));
@@ -120,10 +134,6 @@ void render(graphics::Window *window) {
 
 	player->move(moveVec);
 	playerPos += moveVec;
-    
-    //playerPos += (physics::createVec(-sin(playerAngle[1]), 0, cos(playerAngle[1])) * -moveVec[0]);
-    //playerPos += (physics::createVec(cos(playerAngle[1]), 0, sin(playerAngle[1])) * moveVec[2]);
-    //playerPos += (physics::createVec(0, 1, 0) * moveVec[1]);
 }
 
 void handleEvent(SDL_Event e) {
