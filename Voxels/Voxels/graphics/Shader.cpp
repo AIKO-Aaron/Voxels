@@ -81,8 +81,9 @@ static util::filedata loadShaderRecursive(const char *filePath, int depth = 9) {
                 int len = 0; // Length of directive
                 int start = s; // Start at current offset in file
                 while(fd.data[s++] != '\n') ++len; // Search for next newline
-                len--;
-                s--;
+                //len--;
+                //s--;
+                
                 // Load the preprocessor directive into str
                 char *str = (char*) malloc(len + 1);
                 memcpy(str, fd.data + start, len);
@@ -118,6 +119,7 @@ static util::filedata loadShaderRecursive(const char *filePath, int depth = 9) {
                     s = start - 1; // Go back to the start of the line
                 }
                 
+                --s;
                 free(str);
             }
         }

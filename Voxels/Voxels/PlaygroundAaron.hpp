@@ -50,7 +50,7 @@ static void initPlayground() {
     // Directional light
     shader->uniformf("lights[0].position", physics::createVec(0.0f, 1, 0.0, 0));
     shader->uniformf("lights[0].attenuation", physics::createVec(1.0, 0.14f, 0.07f));
-    shader->uniformf("lights[0].ambientColor", physics::createVec(0.1f, 0.0f, 0.0f));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.2f, 0.2f, 0.2f));
     shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].brightness", 1.0f);

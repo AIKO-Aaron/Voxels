@@ -49,10 +49,6 @@ vec3 calcLight(material m, lightSource src, vec3 viewPos, vec3 pos, vec3 normalV
         spec *= attenuation;
     }
     
-    /**if(abs(dot(vec4(0, 0, 1, 0), vec4(normalVec, 0))) <= 0.01) {
-        return vec3(1, 0, 1);
-    }*/
-    
     // Add up all our light values multiplied with the "color" (factor for each color channel) of that light multiplied with the color value at that position
     return src.brightness * (amb * getAmbientColor(m, uv) + diff * getDiffuseColor(m, uv) + spec * getSpecularColor(m, uv)) * getColor(m, uv).rgb;
 }
