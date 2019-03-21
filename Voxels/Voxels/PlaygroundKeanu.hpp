@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#define TEST_FLOOR_SIZE 5
+#define TEST_FLOOR_SIZE 2
 
 struct lightSource {
     physics::vec4 position; // If w = 1 then pos, else (w = 0) then direction
@@ -48,11 +48,12 @@ static void initPlayground() {
     shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
-    shader->uniformf("lights[0].position", physics::createVec(0.3f, -1.0f, 0.5f, 0));
+    shader->uniformi("numLights", 1);
+    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1.0f, 0.5f, 0));
     shader->uniformf("lights[0].ambientColor", physics::createVec(0.05f, 0.05f, 0.05f));
     shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(0.0f, 0.0f, 0.0f));
-    shader->uniformf("lights[0].brightness", 10.0f);
+    shader->uniformf("lights[0].brightness", 1.0f);
     
     /*
     shader->uniformf("lights[1].position", physics::createVec(1, 4, -1, 1));

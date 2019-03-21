@@ -27,6 +27,23 @@ namespace math {
         Vector();
         Vector(float v);
         Vector(float *v);
+        ~Vector(){
+            delete[] values;
+        };
+        Vector& operator=(const Vector& that){
+            if (this != &that)
+            {
+                delete[] values;
+                // This is a dangerous point in the flow of execution!
+                // We have temporarily invalidated the class invariants,
+                // and the next statement might throw an exception,
+                // leaving the object in an invalid state :(
+                values = new float[D];
+                values = that.values;
+            }
+            return *this;
+        }
+        
         
         inline float &operator[](int index) { return values[index]; }
         
