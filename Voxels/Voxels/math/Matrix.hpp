@@ -22,7 +22,9 @@ namespace math {
         Matrix();
         Matrix(float filler);
         Matrix(float *values);
+        Matrix(Matrix<M, N> const& other) { values = new float[N * M]; for(int i = 0; i < M * N; i++) values[i] = other.values[i]; }
 		Matrix(Vector<M> v);
+        ~Matrix() { delete[] values; }
         
         inline void print() {
             printf("Matrix (%d|%d)\n[\n", M, N);
