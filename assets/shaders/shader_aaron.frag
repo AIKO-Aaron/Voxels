@@ -1,6 +1,6 @@
 #version 330 core
 
-#define NUM_LIGHTS 10
+#define NUM_LIGHTS 100
 #include "assets/shaders/util/lights.glsl"
 
 uniform lightSource lights[NUM_LIGHTS];

@@ -8,129 +8,145 @@
 
 #ifndef PlaygroundKeanu_hpp
 #define PlaygroundKeanu_hpp
-
 #include "config/StaticConfig.hpp"
 #include "graphics/Window.hpp"
 #include "graphics/Shader.hpp"
 #include "math/Physics.hpp"
-#include "graphics/objects/Voxel.hpp"
+#include "graphics/objects/Triangle.hpp"
 #include "graphics/Chunk.hpp"
-#include "graphics/Entity/Entity.hpp"
 
 #include <vector>
 
+#define TEST_FLOOR_SIZE 10
 
-std::vector<graphics::Chunk*> chunks;
-std::vector<graphics::entities::Entity*> entities;
-graphics::entities::Entity* player;
+struct lightSource {
+    physics::vec4 position; // If w = 1 then pos, else (w = 0) then direction
+    physics::vec3 ambientColor;
+    physics::vec3 diffuseColor;
+    physics::vec3 specularColor;
+    float brightness;
+};
+
+physics::Env env;
+float *floorHeights = new float[TEST_FLOOR_SIZE * TEST_FLOOR_SIZE];
+std::vector<graphics::objects::Triangle*> floorTriangles;
+std::vector<graphics::objects::Voxel*> physObj;
+graphics::objects::Voxel *player;
 graphics::Shader *shader;
-// For the shaders
-physics::vec3 cameraPos = physics::createVec(0, -2, 0), playerAngle, moveVec, cameraAngle;
+physics::vec3 playerPos = physics::createVec(0, 0, 0), playerAngle;
 float currentTime = 0;
 
-/**
- Gets called once, after the window was init & before rendering starts
- Init all your stuff here
- */
+physics::vec3 gravity(physics::Element *element) {
+    if (element->position[1] > 0) {
+        element->position[1] = 0;
+        element->velocity[1] = 0;
+    }
+    return physics::createVec(0, 0.001 * element->mass, 0);
+}
+
 static void initPlayground() {
-    shader = graphics::loadFromFiles("./assets/shaders/shader.vert", "./assets/shaders/shader.frag");
+    shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
-    //push a test voxel into a junk
-    chunks.push_back(new graphics::Chunk(0,0));
-    graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
-    graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
-    for(int i = 0; i < 100; i++) {
-        int x = i % 10;
-        int z = i / 10;
-        chunks[0]->voxels.push_back(new graphics::objects::Voxel(shader, BLANK, x, 0, z, 1, 1, 1, (x + z) % 2 == 0 ? m1 : m2));
-    }
-    player = new graphics::entities::Entity(shader, 2, 1, 2, Player);
-}
-
-/**
- Function that renders everything, also resppnsible to update everything
- */
-static void render(graphics::Window *window) {
-    glClearColor(0, 0, 0, 1); // Clear background to black
-    
-    for (int i = 0; i < chunks.size(); i++) chunks[i]->render();
-    for (int i = 0; i < entities.size(); i++) entities[i]->update();
-    for (int i = 0; i < entities.size(); i++) entities[i]->render();
-    player->render();
-    
-    
-    
-    shader->uniformf("time", currentTime);
-    shader->uniformf("cameraPos", cameraPos);
-    shader->uniformf("playerView", playerAngle);
-    
-    currentTime += 0.01;
-    
-    if(window->isKeyPressed(SDL_SCANCODE_D)) moveVec -= physics::createVec(0, 0, ACCELERATION);
-    else {
-        if (moveVec[2] < 0) {
-            moveVec += physics::createVec(0, 0, ACCELERATION);
-            if (moveVec[2] > 0) moveVec[2] = 0;
-        }
-    }
-    if(window->isKeyPressed(SDL_SCANCODE_A)) moveVec += physics::createVec(0, 0, ACCELERATION);
-    else {
-        if (moveVec[2] > 0) {
-            moveVec -= physics::createVec(0, 0, ACCELERATION);
-            if (moveVec[2] < 0) moveVec[2] = 0;
-        }
-    }
-    if(window->isKeyPressed(SDL_SCANCODE_W)) moveVec += physics::createVec(ACCELERATION, 0, 0);
-    else {
-        if (moveVec[0] > 0) {
-            moveVec -= physics::createVec(ACCELERATION, 0, 0);
-            if (moveVec[0] < 0) moveVec[0] = 0;
-        }
-    }
-    if(window->isKeyPressed(SDL_SCANCODE_S)) moveVec -= physics::createVec(ACCELERATION, 0, 0);
-    else {
-        if (moveVec[0] < 0) {
-            moveVec += physics::createVec(ACCELERATION, 0, 0);
-            if (moveVec[0] > 0) moveVec[0] = 0;
-        }
-    }
-    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) moveVec -= physics::createVec(0, ACCELERATION, 0);
-    else {
-        if (moveVec[1] < 0) {
-            moveVec += physics::createVec(0, ACCELERATION, 0);
-            if (moveVec[1] > 0) moveVec[1] = 0;
-        }
-    }
-    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) moveVec += physics::createVec(0, ACCELERATION, 0);
-    else {
-        if (moveVec[1] > 0) {
-            moveVec -= physics::createVec(0, ACCELERATION, 0);
-            if (moveVec[1] < 0) moveVec[1] = 0;
-        }
-    }
-    
-    //limit the direction vector to length 1
-    float len = moveVec.len();
-    if (len > 1) moveVec /= len;
+    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1, 0.5, 0));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.5f, 0.5f, 0.5f));
+    shader->uniformf("lights[0].diffuseColor", physics::createVec(0.1f, 0.1f, 0.1f));
+    shader->uniformf("lights[0].specularColor", physics::createVec(1.0f, 1.0f, 1.0f));
+    shader->uniformf("lights[0].brightness", 10.0f);
     
     /*
-    cameraPos += (physics::createVec(-0.1 * sin(playerAngle[1]), 0, 0.1 * cos(playerAngle[1])) * -moveVec[0]) * MOVESPEED;
-    cameraPos += (physics::createVec(0.1 * cos(playerAngle[1]), 0, 0.1 * sin(playerAngle[1])) * moveVec[2]) * MOVESPEED;
-    cameraPos += (physics::createVec(0.0, 0.1, 0.0) * moveVec[1]) * MOVESPEED;
+    shader->uniformf("lights[1].position", physics::createVec(1, 4, -1, 1));
+    shader->uniformf("lights[1].ambientColor", physics::createVec(0.0f, 0.0f, 0.1f));
+    shader->uniformf("lights[1].diffuseColor", physics::createVec(0.0f, 0.0f, 0.1f));
+    shader->uniformf("lights[1].specularColor", physics::createVec(0.0f, 0.0f, 1.0f));
      */
-    player->move(moveVec * MOVESPEED);
+    
+#ifdef DEBUG_RANDOM
+    math::Perlin perlin = math::Perlin(0x1234); // Contstant seed
+#else
+    math::Perlin perlin = math::Perlin((int) time(NULL));
+#endif
+    
+    env.addForceFunc(gravity);
+    
+    graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
+    graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
+    for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = -5.0f * (float) perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f) - 1.0f;
+    
+    player = new graphics::objects::Voxel(shader, BLANK, 0, 0, 0, 1, 1, 1, m1); // Centered around 0,0,0
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
+    
+    for (graphics::objects::Voxel *v : physObj) env.addElement(v);
+    
+    for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
+        for(int j = 0; j < TEST_FLOOR_SIZE - 1; j++) {
+            physics::vec3 p1 = physics::createVec((float) i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
+            physics::vec3 p2 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
+            physics::vec3 p3 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1);
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m1));
+            
+            physics::vec3 p4 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
+            physics::vec3 p5 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
+            physics::vec3 p6 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, m1));
+        }
+    }
+    for(graphics::objects::Triangle *d : floorTriangles) env.addElement(d);
 }
 
-/**
- If an event happens, you can handle it here
- */
-static void handleEvent(SDL_Event e) {
+void render(graphics::Window *window) {
+    glClearColor(0, 0, 0, 1); // Clear background to black
+    
+    env.applyForces();
+    
+    //for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
+    //player->render();
+    for (graphics::objects::Voxel *v : physObj) v->render();
+    for (graphics::objects::Triangle *d : floorTriangles) d->render();
+    
+    physics::vec3 viewdir = physics::createVec(-cos(playerAngle[1]) * cos(playerAngle[0]), sin(playerAngle[0]), sin(playerAngle[1]) * cos(playerAngle[0]));
+    
+    shader->uniformf("time", currentTime);
+    shader->uniformf("cameraPos", playerPos - viewdir * 0);
+    shader->uniformf("playerView", playerAngle);
+    
+    currentTime += 0.01f;
+    
+    physics::vec3 moveVec;
+    if(window->isKeyPressed(SDL_SCANCODE_D)) moveVec -= physics::createVec(0, 0, MOVESPEED);
+    if(window->isKeyPressed(SDL_SCANCODE_A)) moveVec += physics::createVec(0, 0, MOVESPEED);
+    if(window->isKeyPressed(SDL_SCANCODE_W)) moveVec += physics::createVec(MOVESPEED, 0, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_S)) moveVec -= physics::createVec(MOVESPEED, 0, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_SPACE)) moveVec -= physics::createVec(0, MOVESPEED, 0);
+    if(window->isKeyPressed(SDL_SCANCODE_LSHIFT)) moveVec += physics::createVec(0, MOVESPEED, 0);
+    moveVec *= 0.1f;
+    
+    moveVec = physics::createMat(
+                                 sin(playerAngle[1]), 0, -cos(playerAngle[1]),
+                                 0, 1, 0,
+                                 cos(playerAngle[1]), 0, sin(playerAngle[1])) * moveVec;
+    
+    player->move(moveVec);
+    playerPos += moveVec;
+    
+    //playerPos += (physics::createVec(-sin(playerAngle[1]), 0, cos(playerAngle[1])) * -moveVec[0]);
+    //playerPos += (physics::createVec(cos(playerAngle[1]), 0, sin(playerAngle[1])) * moveVec[2]);
+    //playerPos += (physics::createVec(0, 1, 0) * moveVec[1]);
+}
+
+void handleEvent(SDL_Event e) {
     if(e.type == SDL_MOUSEMOTION) {
         playerAngle += physics::createVec(e.motion.yrel / 200.0f, -e.motion.xrel / 200.0f, 0) * MOUSE_SENSITIVITY;
         if (playerAngle[0] < -PI_HALF) playerAngle[0] = -PI_HALF;
         if (playerAngle[0] > PI_HALF) playerAngle[0] = PI_HALF;
+        
+        player->rotate(physics::createVec(e.motion.yrel / 200.0f, -e.motion.xrel / 200.0f, 0) * MOUSE_SENSITIVITY);
+        if (player->getData().rotation[0] < -PI_HALF) player->getData().rotation[0] = -PI_HALF;
+        if (player->getData().rotation[0] > PI_HALF) player->getData().rotation[0] = PI_HALF;
     }
 }
+
 
 #endif /* PlaygroundKeanu_hpp */
