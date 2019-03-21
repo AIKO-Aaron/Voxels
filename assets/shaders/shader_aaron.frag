@@ -17,7 +17,7 @@ out vec4 fragColor;
 
 void main() {
     //fragColor = mat.isTextured == 1 ? texture(mat.tex, uv) : mat.color;
-    vec3 col;
+    vec3 col = vec3(0.0, 0.0, 0.0);
     for(int i = 0; i < NUM_LIGHTS; i++) {
         col += calcLight(mat, lights[i], viewPos, pos.xyz, normal.xyz, uv);
     }
