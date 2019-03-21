@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#define TEST_FLOOR_SIZE 10
+#define TEST_FLOOR_SIZE 5
 
 struct lightSource {
     physics::vec4 position; // If w = 1 then pos, else (w = 0) then direction
@@ -48,10 +48,10 @@ static void initPlayground() {
     shader = graphics::loadFromFiles("./assets/shaders/shader_aaron.vert", "./assets/shaders/shader_aaron.frag");
     shader->bind();
     
-    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1, 0.5, 0));
-    shader->uniformf("lights[0].ambientColor", physics::createVec(0.5f, 0.5f, 0.5f));
-    shader->uniformf("lights[0].diffuseColor", physics::createVec(0.1f, 0.1f, 0.1f));
-    shader->uniformf("lights[0].specularColor", physics::createVec(1.0f, 1.0f, 1.0f));
+    shader->uniformf("lights[0].position", physics::createVec(0.3f, -1.0f, 0.5f, 0));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.05f, 0.05f, 0.05f));
+    shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
+    shader->uniformf("lights[0].specularColor", physics::createVec(0.0f, 0.0f, 0.0f));
     shader->uniformf("lights[0].brightness", 10.0f);
     
     /*
@@ -85,12 +85,12 @@ static void initPlayground() {
             physics::vec3 p1 = physics::createVec((float) i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p2 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p3 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m1));
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, graphics::objects::Material(physics::createVec(0, 1, 0, 1))));
             
             physics::vec3 p4 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p5 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p6 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, m1));
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, graphics::objects::Material(physics::createVec(0, 1, 0, 1))));
         }
     }
     for(graphics::objects::Triangle *d : floorTriangles) env.addElement(d);
