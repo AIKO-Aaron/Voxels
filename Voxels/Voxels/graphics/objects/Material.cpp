@@ -16,6 +16,11 @@ Material::Material(physics::vec4 col) : color(col) {
 
 Material::Material(graphics::Texture *tex) : texture(tex) {
     isTextured = true;
+    
+    // Temporary do this:
+    ambientTexture = tex;
+    diffuseTexture = tex;
+    specularTexture = tex;
 }
 
 void Material::use(graphics::Shader *shader) {
