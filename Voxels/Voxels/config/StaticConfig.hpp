@@ -34,4 +34,6 @@
 
 #define _PROJ_TEST_AARON
 
+#define GL_ANTI_ALIASING
+
 #endif /* StaticConfig_h */

@@ -87,7 +87,10 @@ void graphics::Window::initGL() {
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); // Enable accelerated graphics
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Enable double buffering (No flickering)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG); // Set the forward compability flag (Not sure if needed, but macs seem to need it)
-    
+
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
+
     // 8 bits per color channel
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -113,6 +116,10 @@ void graphics::Window::initContext() {
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
 
+#ifdef GL_ANTI_ALIASING
+    glEnable(GL_MULTISAMPLE);
+#endif
+    
 #ifdef DEBUG_GL
     GLuint err = glGetError();
     int i = 0;
