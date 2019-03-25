@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#define TEST_FLOOR_SIZE 2
+#define TEST_FLOOR_SIZE 10
 
 struct lightSource {
     physics::vec4 position; // If w = 1 then pos, else (w = 0) then direction

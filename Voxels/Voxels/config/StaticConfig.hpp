@@ -21,8 +21,8 @@
 //################################
 
 #define WINDOW_TITLE "Voxels"
-#define WINDOW_WIDTH 960
-#define WINDOW_HEIGHT 540
+#define WINDOW_WIDTH 1820
+#define WINDOW_HEIGHT 1080
 
 //################################
 // Gameplay
