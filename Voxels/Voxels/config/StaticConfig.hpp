@@ -21,8 +21,8 @@
 //################################
 
 #define WINDOW_TITLE "Voxels"
-#define WINDOW_WIDTH 960
-#define WINDOW_HEIGHT 540
+#define WINDOW_WIDTH 1820
+#define WINDOW_HEIGHT 1080
 
 //################################
 // Gameplay
@@ -32,7 +32,7 @@
 #define ACCELERATION 0.15f
 #define MOUSE_SENSITIVITY 1.0f
 
-#define _PROJ_TEST_AARON
+//#define _PROJ_TEST_AARON
 
 #define GL_ANTI_ALIASING
 
