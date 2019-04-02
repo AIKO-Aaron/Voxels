@@ -36,7 +36,7 @@ physics::vec3 gravity(physics::Element *element) {
 		element->position[1] = 0;
 		element->velocity[1] = 0;
 	}
-	return physics::createVec(0, 0.001 * element->mass, 0);
+	return physics::createVec(0, 0.001f * element->mass, 0);
 }
 
 static void initPlayground() {
@@ -52,7 +52,7 @@ static void initPlayground() {
     // Directional light
     shader->uniformf("lights[0].position", physics::createVec(1.0f, 1.0f, 0.0, 0.0f));
     shader->uniformf("lights[0].attenuation", physics::createVec(1.0, 0.14f, 0.07f));
-    shader->uniformf("lights[0].ambientColor", physics::createVec(0.0f, 0.0f, 0.0f));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.5f, 0.5f, 0.5f));
     shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(0.0f, 0.0f, 0.0f));
     shader->uniformf("lights[0].brightness", 0.2f);
@@ -74,11 +74,14 @@ static void initPlayground() {
 
 	env.addForceFunc(gravity);
     
-    graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
+	graphics::objects::Material mp = graphics::objects::Material(physics::createVec(1, 1, 1, 1));
+
+	graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
     graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
     for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = 5.0f * (float) perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f);
     
-	player = new graphics::objects::Voxel(shader, BLANK, 0, -1, 0, 1, 1, 1, m1); // Centered around 0,0,0
+	player = new graphics::objects::Voxel(shader, BLANK, 0, -1, 0, 1, 1, 1, mp); // Centered around 0,0,0
+
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
 	physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
@@ -124,11 +127,17 @@ void render(graphics::Window *window) {
 	for (graphics::objects::Voxel *v : physObj) v->render();
 	floorMesh->render();
 
-	physics::vec3 viewdir = physics::createVec(-cos(playerAngle[1]) * cos(playerAngle[0]), sin(playerAngle[0]), sin(playerAngle[1]) * cos(playerAngle[0]));
+	physics::vec3 viewVec = physics::createVec(
+		sin(playerAngle[1]) * (cos(playerAngle[0])),
+		sin(playerAngle[0]), 
+		cos(playerAngle[1]) * (cos(playerAngle[0])));
+
+	physics::vec3 viewdir = physics::createVec(0, 0, -2); // Which way wer're facing (in world space)
 
     shader->uniformf("time", currentTime);
-    shader->uniformf("cameraPos", playerPos - viewdir * 0);
-    shader->uniformf("playerView", playerAngle);
+    shader->uniformf("cameraPos", player->position);
+	shader->uniformf("cameraOffset", viewdir * 1);
+	shader->uniformf("playerView", playerAngle);
     
     currentTime += 0.01f;
     

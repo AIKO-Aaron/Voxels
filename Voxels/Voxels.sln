@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\assets\shaders\shader.vert = ..\assets\shaders\shader.vert
 		..\assets\shaders\shader_aaron.frag = ..\assets\shaders\shader_aaron.frag
 		..\assets\shaders\shader_aaron.vert = ..\assets\shaders\shader_aaron.vert
+		..\assets\shaders\shader_keanu.frag = ..\assets\shaders\shader_keanu.frag
+		..\assets\shaders\shader_keanu.vert = ..\assets\shaders\shader_keanu.vert
 		..\assets\shaders\util\transformations.glsl = ..\assets\shaders\util\transformations.glsl
 	EndProjectSection
 EndProject

@@ -152,6 +152,7 @@
     <ClInclude Include="graphics\objects\Mesh.hpp" />
     <ClInclude Include="graphics\objects\Material.hpp" />
     <ClInclude Include="graphics\objects\Object.hpp" />
+    <ClInclude Include="graphics\objects\Objectmanager.hpp" />
     <ClInclude Include="graphics\objects\Triangle.hpp" />
     <ClInclude Include="graphics\objects\Voxel.hpp" />
     <ClInclude Include="graphics\Shader.hpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="graphics\objects\Mesh.cpp" />
     <ClCompile Include="graphics\objects\Material.cpp" />
     <ClCompile Include="graphics\objects\Object.cpp" />
+    <ClCompile Include="graphics\objects\Objectmanager.cpp" />
     <ClCompile Include="graphics\objects\Triangle.cpp" />
     <ClCompile Include="graphics\objects\Voxel.cpp" />
     <ClCompile Include="graphics\Shader.cpp" />

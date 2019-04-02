@@ -7,7 +7,7 @@ Mesh::Mesh(graphics::Shader *shader, std::vector<physics::vec3> pointsInMesh, Ma
 
 	vertexData *verticies = new vertexData[pointsInMesh.size()];
 
-	for (int i = 0; i < pointsInMesh.size() / 3; i++) {
+	for (int i = 0; i < (int) pointsInMesh.size() / 3; i++) {
 		physics::vec3 p1 = pointsInMesh[3 * i + 0];
 		physics::vec3 p2 = pointsInMesh[3 * i + 1];
 		physics::vec3 p3 = pointsInMesh[3 * i + 2];
@@ -19,8 +19,8 @@ Mesh::Mesh(graphics::Shader *shader, std::vector<physics::vec3> pointsInMesh, Ma
 	}
 
 
-	GLubyte *indicies = new GLubyte[pointsInMesh.size()];
-	for (int i = 0; i < pointsInMesh.size(); i++) indicies[i] = i;
+	GLubyte *indicies = new GLubyte[(int)pointsInMesh.size()];
+	for (int i = 0; i < (int)pointsInMesh.size(); i++) indicies[i] = i;
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

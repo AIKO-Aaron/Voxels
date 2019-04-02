@@ -97,7 +97,11 @@ void Voxel::init(float x, float y, float z, float w, float h, float d, Material 
 
 void Voxel::move(physics::vec3 dxyz){
     position += dxyz;
+#ifdef _PROJ_TEST_AARON
+
+#else
     shader->uniformf("globalPosition", position);
+#endif
 }
 
     

@@ -8,6 +8,7 @@ layout (location = 2) in vec3 vertNormal;
 
 uniform float time;
 uniform vec3 cameraPos;
+uniform vec3 cameraOffset = vec3(0, 0, 0); // The current camera offset
 uniform vec3 playerView;
 
 uniform vec3 vertPos = vec3(0, 0, 0); // The current vertex translation
@@ -22,9 +23,10 @@ out mat4 view;
 
 mat4 createTransformationMatrix() {
     return perspective(PI / 2.0f, 0.1, 100) // We have a 3D perspective (Things further back are smaller)
+            * translate(-cameraOffset) // Move the camera according to the offset specified
             * rotate_camera(playerView) // Rotate the camera, so the player sees the right things
             * translate(cameraPos) // Move the world so the camera is moved to its position
-            * translate(vertPos) // Move vertex to its position
+            * translate(-vertPos) // Move vertex to its position --> Move it to 0,0,0
             * translate(anchorPos) // Translate back
             * rotate(-vertRot) // Rotate around 0,0,0
             * translate(-anchorPos); // Translate anchorPos to 0,0,0

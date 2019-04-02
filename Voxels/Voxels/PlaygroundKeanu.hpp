@@ -41,7 +41,7 @@ physics::vec3 gravity(physics::Element *element) {
         element->position[1] = 0;
         element->velocity[1] = 0;
     }
-    return physics::createVec(0, 0.001 * element->mass, 0);
+    return physics::createVec(0, 0.001f * element->mass, 0);
 }
 
 static void initPlayground() {
@@ -81,7 +81,7 @@ static void initPlayground() {
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
-    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 5.0, 10.0, 5.0, 0.1, 0.1, 0.1, m2));
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 5.0f, 10.0f, 5.0f, 0.1f, 0.1f, 0.1f, m2));
     for (graphics::objects::Voxel *v : physObj) env.addElement(v);
     
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
