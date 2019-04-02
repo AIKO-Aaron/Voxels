@@ -14,6 +14,7 @@
 #include "graphics/Shader.hpp"
 #include "math/Physics.hpp"
 #include "graphics/objects/Triangle.hpp"
+#include "graphics/objects/Mesh.hpp"
 #include "graphics/Chunk.hpp"
 
 #include <vector>
@@ -23,6 +24,7 @@
 physics::Env env;
 float *floorHeights = new float[TEST_FLOOR_SIZE * TEST_FLOOR_SIZE];
 std::vector<graphics::objects::Triangle*> floorTriangles;
+graphics::objects::Mesh *floorMesh;
 std::vector<graphics::objects::Voxel*> physObj;
 graphics::objects::Voxel *player;
 graphics::Shader *shader;
@@ -85,20 +87,31 @@ static void initPlayground() {
     // physObj[2]->mass *= 40;
     for (graphics::objects::Voxel *v : physObj) env.addElement(v);
 
+
+	std::vector<physics::vec3> points;
     m2.shininess = 32.0f;
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
         for(int j = 0; j < TEST_FLOOR_SIZE - 1; j++) {
             physics::vec3 p1 = physics::createVec((float)i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p2 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p3 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m2));
+            //floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m2));
+			points.push_back(p1);
+			points.push_back(p2);
+			points.push_back(p3);
 
             physics::vec3 p4 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p5 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p6 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, m2));
-        }
+            //floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, m2));
+			points.push_back(p4);
+			points.push_back(p5);
+			points.push_back(p6);
+		}
     }
+
+	floorMesh = new graphics::objects::Mesh(shader, points, m2);
+	env.addElement(floorMesh);
 }
 
 void render(graphics::Window *window) {
@@ -109,6 +122,7 @@ void render(graphics::Window *window) {
     for (size_t i = 0; i < floorTriangles.size(); i++) floorTriangles[i]->render();
 	player->render();
 	for (graphics::objects::Voxel *v : physObj) v->render();
+	floorMesh->render();
 
 	physics::vec3 viewdir = physics::createVec(-cos(playerAngle[1]) * cos(playerAngle[0]), sin(playerAngle[0]), sin(playerAngle[1]) * cos(playerAngle[0]));
 

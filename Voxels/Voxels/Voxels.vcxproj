@@ -149,6 +149,7 @@
     <ClInclude Include="glew\GL\wglew.h" />
     <ClInclude Include="graphics\Chunk.hpp" />
     <ClInclude Include="graphics\Entity\Entity.hpp" />
+    <ClInclude Include="graphics\objects\Mesh.hpp" />
     <ClInclude Include="graphics\objects\Material.hpp" />
     <ClInclude Include="graphics\objects\Object.hpp" />
     <ClInclude Include="graphics\objects\Triangle.hpp" />
@@ -177,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="graphics\Chunk.cpp" />
     <ClCompile Include="graphics\Entity\Entity.cpp" />
+    <ClCompile Include="graphics\objects\Mesh.cpp" />
     <ClCompile Include="graphics\objects\Material.cpp" />
     <ClCompile Include="graphics\objects\Object.cpp" />
     <ClCompile Include="graphics\objects\Triangle.cpp" />
