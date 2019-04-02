@@ -53,7 +53,7 @@ static void initPlayground() {
     shader->uniformf("lights[0].ambientColor", physics::createVec(0.0f, 0.0f, 0.0f));
     shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(0.0f, 0.0f, 0.0f));
-    shader->uniformf("lights[0].brightness", 1.0f);
+    shader->uniformf("lights[0].brightness", 0.2f);
     
     /*
     shader->uniformf("lights[1].position", physics::createVec(1, 4, -1, 1));

@@ -32,11 +32,11 @@ mat4 createTransformationMatrix() {
 
 void main() {
     view = createTransformationMatrix();
+    objectNormalvector = normalize(vec4(vertNormal, 0.0));
     gl_Position = view * vec4(vertPosition, 1);
     
     // Give stuff to Fragment shader
     //transObjectNormal = normalize(view * vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
-    objectNormalvector = vec4(vertNormal, 0.0);
     transObjectPos = gl_Position;
     uv = uvPosition;
     transCameraPos = normalize(view * vec4(cameraPos, 0)).xyz;

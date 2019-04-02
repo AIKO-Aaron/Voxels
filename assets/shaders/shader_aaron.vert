@@ -35,7 +35,7 @@ void main() {
     gl_Position = view * vec4(vertPosition, 1);
     
     // Give stuff to Fragment shader
-    normal = normalize(view * vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
+    normal = normalize(vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
 	pos = gl_Position;
     uv = uvPosition;
     viewPos = normalize(view * vec4(cameraPos, 0)).xyz;

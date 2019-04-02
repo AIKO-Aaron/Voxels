@@ -32,7 +32,7 @@
 #define ACCELERATION 0.15f
 #define MOUSE_SENSITIVITY 1.0f
 
-//#define _PROJ_TEST_AARON
+#define _PROJ_TEST_AARON
 
 #define GL_ANTI_ALIASING
 

@@ -29,15 +29,15 @@ vec3 getSpecularColor(material m, vec2 uv) { return m.isTextured == 1 ? texture(
 vec3 calcLight(material m, lightSource src, vec3 viewPos, vec3 pos, vec3 normalVec, vec2 uv, mat4 view) {
     // Some intermediate values
     vec3 lightDir;
-    if(src.position.w == 0) lightDir = normalize((view * src.position).xyz); // Only dir
-    else lightDir = normalize(pos - (view * src.position).xyz); // Position --> dir is from our pos to this pos
+    if(src.position.w == 0) lightDir = normalize(src.position.xyz); // Only dir
+    else lightDir = normalize(pos - src.position.xyz); // Position --> dir is from our pos to this pos
     
     vec3 viewDir = normalize(pos - viewPos);
     vec3 reflectDir = reflect(lightDir, normalize(normalVec));
     
     // Calculate our lights
     vec3 amb = src.ambientColor ;
-    vec3 diff = src.diffuseColor * max(dot(normalVec, lightDir), 0.0);
+    vec3 diff = src.diffuseColor * max(dot(normalize(normalVec), lightDir), 0.0);
     vec3 spec = SPECULAR_CONSTANT * src.specularColor * pow(max(dot(viewDir, reflectDir), 0.0), m.shininess);
 
     if(src.position.w != 0) { // Not directional light

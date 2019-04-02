@@ -34,7 +34,7 @@ vec3 calcLight(material m, lightSource src, vec3 transCameraPos, vec3 transObjec
     else lightDir = normalize(transObjectPos - (view * src.position).xyz); // Position --> dir is from our pos to this pos
     
     //vec3 diff = src.diffuseColor * max(dot((view * vec4(objectNormalvector, 0.0)).xyz, (view * vec4(src.position.xyz, 0.0f)).xyz), 0.0);
-    vec3 diff = src.diffuseColor * max(dot(objectNormalvector, src.position.xyz), 0.0);
+    vec3 diff = src.diffuseColor * max(dot(normalize(objectNormalvector), normalize((src.position).xyz)), 0.0);
     
     return diff * getDiffuseColor(m, uv);
     
