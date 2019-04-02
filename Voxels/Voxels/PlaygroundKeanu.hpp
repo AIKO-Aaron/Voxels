@@ -17,7 +17,7 @@
 
 #include <vector>
 
-#define TEST_FLOOR_SIZE 10
+#define TEST_FLOOR_SIZE 50
 
 struct lightSource {
     physics::vec4 position; // If w = 1 then pos, else (w = 0) then direction
@@ -49,8 +49,8 @@ static void initPlayground() {
     shader->bind();
     
     shader->uniformi("numLights", 1);
-    shader->uniformf("lights[0].position", physics::createVec(0.3f, 1.0f, 0.5f, 0));
-    shader->uniformf("lights[0].ambientColor", physics::createVec(0.05f, 0.05f, 0.05f));
+    shader->uniformf("lights[0].position", physics::createVec(5.0f, 10.0f, 5.0f, 0));
+    shader->uniformf("lights[0].ambientColor", physics::createVec(0.0f, 0.0f, 0.0f));
     shader->uniformf("lights[0].diffuseColor", physics::createVec(1.0f, 1.0f, 1.0f));
     shader->uniformf("lights[0].specularColor", physics::createVec(0.0f, 0.0f, 0.0f));
     shader->uniformf("lights[0].brightness", 1.0f);
@@ -71,6 +71,9 @@ static void initPlayground() {
     env.addForceFunc(gravity);
     
     graphics::objects::Material m1 = graphics::objects::Material(physics::createVec(0, 0, 1, 1));
+    graphics::objects::Material m3 = graphics::objects::Material(physics::createVec(1, 1, 1, 1));
+    graphics::objects::Material m4 = graphics::objects::Material(physics::createVec(0, 1, 0, 1));
+    m4.shininess = 0.0f;
     graphics::objects::Material m2 = graphics::objects::Material(new graphics::Texture("assets/textures/cube/water.png"));
     for(int i = 0; i < TEST_FLOOR_SIZE * TEST_FLOOR_SIZE; i++) floorHeights[i] = -5.0f * (float) perlin.noise((float) (i % TEST_FLOOR_SIZE) / 10.0f, 0, (float)(i / TEST_FLOOR_SIZE) / 10.0f) - 1.0f;
     
@@ -78,7 +81,7 @@ static void initPlayground() {
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -1, -1, 1, 1, 1, m1));
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -3, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 1, 1, 1))));
     physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 0, -6, -1, 1, 1, 1, graphics::objects::Material(physics::createVec(1, 0, 0, 1))));
-    
+    physObj.push_back(new graphics::objects::Voxel(shader, BLANK, 5.0, 10.0, 5.0, 0.1, 0.1, 0.1, m2));
     for (graphics::objects::Voxel *v : physObj) env.addElement(v);
     
     for(int i = 0; i < TEST_FLOOR_SIZE - 1; i++) {
@@ -86,15 +89,15 @@ static void initPlayground() {
             physics::vec3 p1 = physics::createVec((float) i, floorHeights[i + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p2 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
             physics::vec3 p3 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, graphics::objects::Material(physics::createVec(0, 1, 0, 1))));
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p1, p2, p3, m4));
             
             physics::vec3 p4 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p5 = physics::createVec((float)i, floorHeights[i + (j + 1) * TEST_FLOOR_SIZE], (float)j + 1.0f);
             physics::vec3 p6 = physics::createVec((float)i + 1.0f, floorHeights[i + 1 + j * TEST_FLOOR_SIZE], (float)j);
-            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, graphics::objects::Material(physics::createVec(0, 1, 0, 1))));
+            floorTriangles.push_back(new graphics::objects::Triangle(shader, p4, p5, p6, m4));
         }
     }
-    for(graphics::objects::Triangle *d : floorTriangles) env.addElement(d);
+    //for(graphics::objects::Triangle *d : floorTriangles) env.addElement(d);
 }
 
 void render(graphics::Window *window) {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D00458E224CFBC200091318 /* Objectmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D00458C224CFBC200091318 /* Objectmanager.cpp */; };
 		4D06550B2236A7660039F342 /* Chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D0655092236A7660039F342 /* Chunk.cpp */; };
 		4D06550E223A5A8C0039F342 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D06550C223A5A8C0039F342 /* Entity.cpp */; };
 		930FD977223243D1002E553F /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 930FD975223243D1002E553F /* Window.cpp */; };
@@ -56,15 +57,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4D00458C224CFBC200091318 /* Objectmanager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Objectmanager.cpp; sourceTree = "<group>"; };
+		4D00458D224CFBC200091318 /* Objectmanager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Objectmanager.hpp; sourceTree = "<group>"; };
 		4D0655092236A7660039F342 /* Chunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Chunk.cpp; sourceTree = "<group>"; };
 		4D06550A2236A7660039F342 /* Chunk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chunk.hpp; sourceTree = "<group>"; };
 		4D06550C223A5A8C0039F342 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		4D06550D223A5A8C0039F342 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
-		4D4CB2CA2240F5CA00E99D25 /* PhysicsElement.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhysicsElement.hpp; sourceTree = "<group>"; };
-		4D4CB2CB2240F5CA00E99D25 /* PhysicsEnvironment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsEnvironment.cpp; sourceTree = "<group>"; };
-		4D4CB2CC2240F5CA00E99D25 /* PhysicUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhysicUtil.hpp; sourceTree = "<group>"; };
-		4D4CB2CD2240F5CA00E99D25 /* PhysicsElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsElement.cpp; sourceTree = "<group>"; };
-		4D4CB2CE2240F5CA00E99D25 /* PhysicsEnvironment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhysicsEnvironment.hpp; sourceTree = "<group>"; };
 		930FD975223243D1002E553F /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		930FD976223243D1002E553F /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		930FD9792232484D002E553F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -138,18 +136,6 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		4D4CB2C92240F5CA00E99D25 /* physics */ = {
-			isa = PBXGroup;
-			children = (
-				4D4CB2CA2240F5CA00E99D25 /* PhysicsElement.hpp */,
-				4D4CB2CB2240F5CA00E99D25 /* PhysicsEnvironment.cpp */,
-				4D4CB2CC2240F5CA00E99D25 /* PhysicUtil.hpp */,
-				4D4CB2CD2240F5CA00E99D25 /* PhysicsElement.cpp */,
-				4D4CB2CE2240F5CA00E99D25 /* PhysicsEnvironment.hpp */,
-			);
-			path = physics;
-			sourceTree = "<group>";
-		};
 		930FD973223243B9002E553F /* graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +156,6 @@
 		930FD974223243C6002E553F /* math */ = {
 			isa = PBXGroup;
 			children = (
-
 				93446D43223E495E00EA61C7 /* physics */,
 				9313BA9C223978BC000AB321 /* Perlin.cpp */,
 				9313BA9D223978BC000AB321 /* Perlin.hpp */,
@@ -225,6 +210,8 @@
 			children = (
 				938E1A29223662110044BB17 /* Voxel.cpp */,
 				938E1A2A223662110044BB17 /* Voxel.hpp */,
+				4D00458C224CFBC200091318 /* Objectmanager.cpp */,
+				4D00458D224CFBC200091318 /* Objectmanager.hpp */,
 				938E1A2C223662450044BB17 /* Object.cpp */,
 				938E1A2D223662450044BB17 /* Object.hpp */,
 				9313BA962236E002000AB321 /* Material.hpp */,
@@ -362,6 +349,7 @@
 				930FD98122324EA9002E553F /* FileUtil.cpp in Sources */,
 				9313BA9B22397731000AB321 /* Triangle.cpp in Sources */,
 				938E1A27223506530044BB17 /* Physics.cpp in Sources */,
+				4D00458E224CFBC200091318 /* Objectmanager.cpp in Sources */,
 				938E1A242232D6060044BB17 /* main.cpp in Sources */,
 				938E1A2B223662110044BB17 /* Voxel.cpp in Sources */,
 				930FD97D22324E44002E553F /* Shader.cpp in Sources */,
