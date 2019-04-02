@@ -26,7 +26,22 @@ vec3 getAmbientColor(material m, vec2 uv) { return m.isTextured == 1 ? texture(m
 vec3 getDiffuseColor(material m, vec2 uv) { return m.isTextured == 1 ? texture(m.diffuseTex, uv).rgb : m.color.rgb; }
 vec3 getSpecularColor(material m, vec2 uv) { return m.isTextured == 1 ? texture(m.specularTex, uv).rgb : m.color.rgb; }
 
-vec3 calcLight(material m, lightSource src, vec3 viewPos, vec3 pos, vec3 normalVec, vec2 uv, mat4 view) {
+vec3 calcLight(material m, lightSource src, vec3 transCameraPos, vec3 transObjectPos, vec3 objectNormalvector, vec2 uv, mat4 view) {
+    //diffuse light
+    
+    vec3 lightDir;
+    if(src.position.w == 0) lightDir = normalize((view * src.position).xyz); // Only dir
+    else lightDir = normalize(transObjectPos - (view * src.position).xyz); // Position --> dir is from our pos to this pos
+    
+    //vec3 diff = src.diffuseColor * max(dot((view * vec4(objectNormalvector, 0.0)).xyz, (view * vec4(src.position.xyz, 0.0f)).xyz), 0.0);
+    vec3 diff = src.diffuseColor * max(dot(objectNormalvector, src.position.xyz), 0.0);
+    
+    return diff * getDiffuseColor(m, uv);
+    
+    
+    
+    /*
+    
     // Some intermediate values
     vec3 lightDir;
     if(src.position.w == 0) lightDir = normalize((view * src.position).xyz); // Only dir
@@ -51,4 +66,5 @@ vec3 calcLight(material m, lightSource src, vec3 viewPos, vec3 pos, vec3 normalV
     
     // Add up all our light values multiplied with the "color" (factor for each color channel) of that light multiplied with the color value at that position
     return src.brightness * (amb * getAmbientColor(m, uv) + diff * getDiffuseColor(m, uv) + spec * getSpecularColor(m, uv)) * getColor(m, uv).rgb;
+     */
 }

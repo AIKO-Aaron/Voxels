@@ -14,10 +14,10 @@ uniform vec3 vertPos = vec3(0, 0, 0); // The current vertex translation
 uniform vec3 anchorPos = vec3(0, 0, 0); // The point around which to rotate the vertex
 uniform vec3 vertRot = vec3(0, 0, 0); // The current vertex rotation
 
-out vec3 viewPos;
-out vec4 pos;
+out vec3 transCameraPos;
+out vec4 transObjectPos;
 out vec2 uv;
-out vec4 normal;
+out vec4 objectNormalvector;
 out mat4 view;
 
 mat4 createTransformationMatrix() {
@@ -35,8 +35,9 @@ void main() {
     gl_Position = view * vec4(vertPosition, 1);
     
     // Give stuff to Fragment shader
-    normal = normalize(view * vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
-    pos = gl_Position;
+    //transObjectNormal = normalize(view * vec4(vertNormal, 0)); // Direction (w = 0) --> Translations don't get applied
+    objectNormalvector = vec4(vertNormal, 0.0);
+    transObjectPos = gl_Position;
     uv = uvPosition;
-    viewPos = normalize(view * vec4(cameraPos, 0)).xyz;
+    transCameraPos = normalize(view * vec4(cameraPos, 0)).xyz;
 }
